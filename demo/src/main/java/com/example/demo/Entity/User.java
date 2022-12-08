@@ -1,13 +1,14 @@
 package com.example.demo.Entity;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_name")
+    @Column(name="user_name") //user id and make it UNIQUE type
     private String userName;
 
     @Column(name = "user_password")
@@ -15,7 +16,11 @@ public class User {
 
     @Column(name = "user_type")
     private String userType;
-    
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true, mappedBy = "user")
+    private List<Product> product;
+
+    //user delete
 
     public User( String userName, String userPassword) {
         this.userName = userName;
