@@ -15,7 +15,7 @@ SpringApplication.run(DemoApplication.class, args);
 }
 
 @GetMapping("/hello")
-public String hello(@RequestParam(value = "name", defaultValue = "World Itlize") String name) {
+public String hello(@RequestParam(value = "name", defaultValue = "World Itlize. Testing git") String name) {
 return String.format("Hello %s!", name);
 }
 }
