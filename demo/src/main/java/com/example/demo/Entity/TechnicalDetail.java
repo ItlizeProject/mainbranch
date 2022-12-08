@@ -1,6 +1,9 @@
 package com.example.demo.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class TechnicalDetail {
@@ -12,9 +15,10 @@ public class TechnicalDetail {
     @Column(name = "product_id")
     private long productID;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(orphanRemoval = true, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinColumn(name = "product_id")
-    private Product product;
+    private List<Product> product;
 
     public TechnicalDetail() {
     }
