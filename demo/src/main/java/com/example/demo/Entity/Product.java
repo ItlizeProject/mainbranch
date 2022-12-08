@@ -6,9 +6,9 @@ package com.example.demo.Entity;
 //description_id(fk)
 //product_brand
 //certification
-import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 
 @Entity
 public class Product {
