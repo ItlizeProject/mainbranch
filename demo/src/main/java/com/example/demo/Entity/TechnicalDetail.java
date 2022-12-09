@@ -2,6 +2,8 @@ package com.example.demo.Entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class TechnicalDetail {
     @Id
@@ -9,11 +11,12 @@ public class TechnicalDetail {
     @Column(name = "technical_detail_id")
     private long technicalDetailID;
 
-    @Column(name = "product_id")
-    private long productID;
+    // @Column(name = "product_id")
+    // private long productID;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
+    @JsonIgnore
+    @JoinColumn(name = "productId", referencedColumnName = "product_id")
     private Product product;
 
     public TechnicalDetail() {
@@ -42,13 +45,13 @@ public class TechnicalDetail {
         this.technicalDetailID = technicalDetailID;
     }
 
-    public long getProductID() {
-        return productID;
-    }
+    // public long getProductID() {
+    //     return productID;
+    // }
 
-    public void setProductID(long productID) {
-        this.productID = productID;
-    }
+    // public void setProductID(long productID) {
+    //     this.productID = productID;
+    // }
 
     public int getAirflow() {
         return airflow;
@@ -80,5 +83,12 @@ public class TechnicalDetail {
 
     public void setFanSpeed(int fanSpeed) {
         this.fanSpeed = fanSpeed;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }

@@ -4,8 +4,7 @@ import java.util.Date;
 @Entity
 
 public class ProductType {
-
-  
+ 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_type_id")
@@ -29,7 +28,7 @@ public class ProductType {
 
     @OneToOne(cascade = CascadeType.ALL)//fk
     @JoinColumn(name = "productId", referencedColumnName="product_id")
-    private Product product;//I didn't creat Product class
+    private Product product;
 
     public ProductType() {
     }

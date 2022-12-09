@@ -2,6 +2,8 @@ package com.example.demo.Entity;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Description {
 
@@ -9,7 +11,6 @@ public class Description {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "description_id")
     private int descriptionId;
-
 
     @Column(name = "manufacturer")
     private String manufacturer;
@@ -21,8 +22,9 @@ public class Description {
     private String model;
 
     @OneToOne(cascade = CascadeType.ALL)//fk
-    @JoinColumn(name = "product_id")
-    private Product product;//I didn't creat Product class
+    @JsonIgnore
+    @JoinColumn(name = "productId", referencedColumnName = "product_id")
+    private Product product;
 
     public Description() {
 
