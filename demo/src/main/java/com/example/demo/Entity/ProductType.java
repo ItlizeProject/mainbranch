@@ -1,4 +1,7 @@
 package com.example.demo.Entity;
+//modified by Victoria
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 @Entity
@@ -25,8 +28,8 @@ public class ProductType {
     @Column(name = "model_year")
     private Date modelYear;
 
-
-    @OneToOne(cascade = CascadeType.ALL)//fk
+    @JsonIgnore
+    @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
     @JoinColumn(name = "productId", referencedColumnName="product_id")
     private Product product;
 
