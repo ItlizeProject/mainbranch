@@ -17,7 +17,7 @@ public class Project {
 	@JoinColumn(name = "userId", referencedColumnName = "user_id")
 	private User user;
 
-    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
     private List<ProjectProduct> ProjectProduct;
 
