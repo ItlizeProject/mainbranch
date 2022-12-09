@@ -9,7 +9,7 @@ public class Description {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(name = "description_id")
+    @Column(name = "description_id", unique = true)
     private int descriptionId;
 
     @Column(name = "manufacturer")

@@ -9,7 +9,7 @@ public class ProjectProduct{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="project_product_id")
+    @Column(name="project_product_id", unique=true)
     private Long ProjectProductId;
 
     //project_id(fk)

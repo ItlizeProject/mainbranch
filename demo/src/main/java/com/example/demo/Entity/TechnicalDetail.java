@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class TechnicalDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "technical_detail_id")
+    @Column(name = "technical_detail_id", unique = true)
     private long technicalDetailID;
 
     // @Column(name = "product_id")
