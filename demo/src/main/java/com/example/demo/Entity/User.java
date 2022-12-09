@@ -1,6 +1,9 @@
 package com.example.demo.Entity;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 @Entity
@@ -8,7 +11,10 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_name") //user id and make it UNIQUE type
+    @Column(name="user_id", unique = true) //user id and make it UNIQUE type
+    private String userId;
+
+    @Column(name = "user_name")
     private String userName;
 
     @Column(name = "user_password")
@@ -17,18 +23,19 @@ public class User {
     @Column(name = "user_type")
     private String userType;
 
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true, mappedBy = "user")
     private List<Product> product;
 
-    //user delete
+    public User() {
+    }
 
     public User( String userName, String userPassword) {
         this.userName = userName;
         this.userPassword = userPassword;
     }
+    
 
-    public User() {
-    }
     public String getUserName() {
         return userName;
     }
@@ -51,6 +58,22 @@ public class User {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public List<Product> getProduct() {
+        return product;
+    }
+
+    public void setProduct(List<Product> product) {
+        this.product = product;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
     
 }

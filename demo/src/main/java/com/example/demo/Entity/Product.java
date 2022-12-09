@@ -8,6 +8,9 @@ package com.example.demo.Entity;
 //certification
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -16,14 +19,31 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
+    private Long productId;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore
+    private List<ProjectProduct> projectProduct;
  
 
     //product_type_id(fk)
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
 	@JsonIgnore
 	@JoinColumn(name = "productTypeId", referencedColumnName = "product_type_id")
     private ProductType productType;
 
+    //technical_detail_id(fk)
+    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+	@JsonIgnore
+	@JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
+    private TechnicalDetail technicalDetail;
+
+    //description_id(fk)
+    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+	@JsonIgnore
+	@JoinColumn(name = "description", referencedColumnName = "description_id")
+    private Description description;
+    
     public Product(){
 
     }
@@ -32,20 +52,6 @@ public class Product {
         this.productBrand=productBrand;
         this.certification=certification;
     }
- 
-
-    //technical_detail_id(fk)
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
-	@JsonIgnore
-	@JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
-    private TechnicalDetail technicalDetail;
-
-    //description_id(fk)
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
-	@JsonIgnore
-	@JoinColumn(name = "description", referencedColumnName = "description_id")
-    private Description description;
-    
 
     //product_brand
     @Column(name = "product_brand")
@@ -100,6 +106,14 @@ public class Product {
 
     public void setProductBrand(String productBrand) {
         this.productBrand = productBrand;
+    }
+
+    public List<ProjectProduct> getProjectProduct() {
+        return projectProduct;
+    }
+
+    public void setProjectProduct(List<ProjectProduct> projectProduct) {
+        this.projectProduct = projectProduct;
     }
 
 
