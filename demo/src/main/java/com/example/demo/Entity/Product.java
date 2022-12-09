@@ -21,7 +21,7 @@ public class Product {
     @Column(name = "product_id", unique = true)
     private Long productId;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
     private List<ProjectProduct> projectProduct;
  

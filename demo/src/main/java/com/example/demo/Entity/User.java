@@ -24,7 +24,7 @@ public class User {
     private String userType;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true,targetEntity = Project.class)
     private List<Project> projectList;
 
     public User() {
