@@ -13,15 +13,15 @@ public class ProjectProduct{
     private Long ProjectProductId;
 
     //project_id(fk)
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Project.class)
 	@JsonIgnore
-	@JoinColumn(name = "projectId", referencedColumnName = "project_id")
+	@JoinColumn(name = "projectId", referencedColumnName = "project_id", nullable = false)
     private Project project;
 
     //product_id(fk)
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Product.class)
 	@JsonIgnore
-	@JoinColumn(name = "productId", referencedColumnName = "product_id")
+	@JoinColumn(name = "productId", referencedColumnName = "product_id", nullable = false)
     private Product product;
 
     //create Constructor

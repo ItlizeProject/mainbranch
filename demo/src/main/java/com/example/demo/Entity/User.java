@@ -24,8 +24,8 @@ public class User {
     private String userType;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true, mappedBy = "user")
-    private List<Product> product;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true)
+    private List<Project> projectList;
 
     public User() {
     }
@@ -60,13 +60,13 @@ public class User {
         this.userType = userType;
     }
 
-    public List<Product> getProduct() {
-        return product;
-    }
-
-    public void setProduct(List<Product> product) {
-        this.product = product;
-    }
+//    public List<Product> getProduct() {
+//        return product;
+//    }
+//
+//    public void setProduct(List<Product> product) {
+//        this.product = product;
+//    }
 
     public String getUserId() {
         return userId;
@@ -75,5 +75,12 @@ public class User {
     public void setUserId(String userId) {
         this.userId = userId;
     }
-    
+
+    public List<Project> getProjectList() {
+        return projectList;
+    }
+
+    public void setProjectList(List<Project> projectList) {
+        this.projectList = projectList;
+    }
 }
