@@ -2,12 +2,16 @@ package com.example.demo.Service;
 
 import com.example.demo.Entity.ProjectProduct;
 import com.example.demo.Repository.ProjectProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class ProjectProductServiceImpl implements ProjectProductService{
 
-    ProjectProductRepository projectProductRepository;
+//    @Autowired
+    private ProjectProductRepository projectProductRepository;
     @Override
     public ProjectProduct createProjectProduct(ProjectProduct projectProduct) {
         return projectProductRepository.save(projectProduct);
