@@ -7,16 +7,16 @@ import com.example.demo.Entity.User;
 import java.util.List;
 
 public interface ProjectService {
-    public Project createProject(Project project);
-    public Project save(Project project);
+    Project createProject(Project project);
+    Project save(Project project);
     List<Project> findAll();
 
-    public List<Project> findByUser(User user);
+    List<Project> findByUser(User user);
 
-    public Project findProjectByProjectId(long id);
-    public String deleteProject(long id);
+    Project findProjectByProjectId(long id);
+    String deleteProject(long id);
 
-    public Project findProjectByProjectProductId(long id);
+    Project findProjectByProjectProductId(long id);
 
 
 }

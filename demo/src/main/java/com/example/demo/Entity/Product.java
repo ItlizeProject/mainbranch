@@ -27,19 +27,19 @@ public class Product {
  
 
     //product_type_id(fk)
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	@JoinColumn(name = "productTypeId", referencedColumnName = "product_type_id")
     private ProductType productType;
 
     //technical_detail_id(fk)
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	@JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
     private TechnicalDetail technicalDetail;
 
     //description_id(fk)
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
 	@JsonIgnore
 	@JoinColumn(name = "description", referencedColumnName = "description_id")
     private Description description;
