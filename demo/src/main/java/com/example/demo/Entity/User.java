@@ -11,8 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-     //user id and make it UNIQUE type
-    //change to Integer
+    @Column(name = "user_id")
     private Long userId;
 
     @Column(name = "user_name")

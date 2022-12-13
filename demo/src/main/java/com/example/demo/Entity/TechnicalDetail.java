@@ -11,12 +11,9 @@ public class TechnicalDetail {
     @Column(name = "technical_detail_id", unique = true)
     private Integer technicalDetailID;
 
-    // @Column(name = "product_id")
-    // private Integereger productID;
-
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "productId", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
     public TechnicalDetail() {

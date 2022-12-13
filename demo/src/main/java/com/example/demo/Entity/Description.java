@@ -22,7 +22,7 @@ public class Description {
 
     @JsonIgnore
     @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id",referencedColumnName = "product_id")
     private Product product;//I didn't creat Product class
 
     public Description() {

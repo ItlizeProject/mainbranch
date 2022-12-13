@@ -31,7 +31,7 @@ public class ProductType {
 
     @JsonIgnore
     @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
-    @JoinColumn(name = "productId", referencedColumnName="product_id")
+    @JoinColumn(name = "product_id", referencedColumnName="product_id")
     private Product product;//I didn't creat Product class
 
     public ProductType() {

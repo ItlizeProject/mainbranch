@@ -1,12 +1,5 @@
 package com.example.demo.Entity;
 
-//product_id(pk)
-//product_type_id(fk)
-//technical_detail_id(fk)
-//description_id(fk)
-//product_brand
-//certification
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
@@ -14,11 +7,12 @@ import java.util.List;
 import jakarta.persistence.*;
 
 @Entity
+//@Table(name = "Products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", unique = true)
+    @Column(name = "product_id")
     private Integer productId;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
@@ -75,14 +69,13 @@ public class Product {
     public void setCertification(String certification) {
         this.certification = certification;
     }
-    private Integer ProductId;
 
     public Integer getProductId() {
-        return ProductId;
+        return productId;
     }
 
     public void setProductId(Integer productId) {
-        ProductId = productId;
+        this.productId = productId;
     }
 
     public TechnicalDetail getTechnicalDetail() {
