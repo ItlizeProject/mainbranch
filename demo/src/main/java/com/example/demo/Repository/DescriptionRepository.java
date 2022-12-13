@@ -12,7 +12,7 @@ public interface DescriptionRepository extends JpaRepository<Description, Intege
     //下面这些内容本质上定义了我想给用户提供的用来搜索整张Description table的index（比如manufacturer是Description表的一个attribute。本身对于表来说查找所用的
     // index应该是primary key。但是我想给user提供一个通过输入Manufacturer,找到表里对应符合要求的tuple的功能，所以我在这里写了findByManufacturer这个方法）
 
-    Optional<Description> findBy(Integer id);
+    //Optional<Description> findBy(Integer id);
     Optional<Description> findByProductId(Integer id);
     Optional<List<Description>> findByManufacturer(String manufacturer);//user可以通过输入manufacturer来查询所有相关的description tuple
 

@@ -1,6 +1,6 @@
 package com.example.demo.Entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,19 +9,19 @@ public class ProjectProduct{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="project_product_id", unique=true)
-    private Long ProjectProductId;
+    @Column(name="project_product_id")
+    private Integer ProjectProductId;
 
     //project_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Project.class)
-	@JsonIgnore
-	@JoinColumn(name = "projectId", referencedColumnName = "project_id", nullable = false)
+    @JsonIgnore
+    @JoinColumn(name = "projectId", referencedColumnName = "project_id")
     private Project project;
 
     //product_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Product.class)
-	@JsonIgnore
-	@JoinColumn(name = "productId", referencedColumnName = "product_id", nullable = false)
+    @JsonIgnore
+    @JoinColumn(name = "productId", referencedColumnName = "product_id")
     private Product product;
 
     //create Constructor
@@ -46,5 +46,5 @@ public class ProjectProduct{
         this.project = project;
     }
 
-    
+
 }

@@ -8,7 +8,7 @@ import java.util.*;
 
 public interface ProductTypeRepository extends JpaRepository<ProductType, Integer> {
     //    Optional<ProductType> findProductTypeByProductTypeId(Integer id);
-    Optional<ProductType> findBy(Integer id);//find by primary key
+    //Optional<ProductType> findBy(Integer id);//find by primary key
 
     Optional<ProductType> findByProductId(Integer id);
 

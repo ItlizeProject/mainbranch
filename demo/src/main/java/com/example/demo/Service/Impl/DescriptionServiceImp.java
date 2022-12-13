@@ -24,7 +24,7 @@ public class DescriptionServiceImp implements DescriptionService {
 
     @Override
     public Description findDescriptionByDescriptionId(Integer id) {
-        return repository.findBy(id).orElse(null);//based on what I defined in Repository
+        return repository.findById(id).orElse(null);//based on what I defined in Repository
     }
 
     @Override

@@ -1,14 +1,18 @@
 package com.example.demo.Entity;
-import javax.persistence.*;
+//modified by Victoria
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
 import java.util.Date;
 @Entity
 
 public class ProductType {
- 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_type_id", unique = true)
-    private int productTypeId;
+    private Integer productTypeId;
 
     @Column(name = "application")
     private String application;
@@ -25,10 +29,10 @@ public class ProductType {
     @Column(name = "model_year")
     private Date modelYear;
 
-
-    @OneToOne(cascade = CascadeType.ALL)//fk
+    @JsonIgnore
+    @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
     @JoinColumn(name = "productId", referencedColumnName="product_id")
-    private Product product;
+    private Product product;//I didn't creat Product class
 
     public ProductType() {
     }
@@ -41,11 +45,11 @@ public class ProductType {
         this.modelYear = modelYear;
     }
 
-    public int getProductTypeId() {
+    public Integer getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(int productTypeId) {
+    public void setProductTypeId(Integer productTypeId) {
         this.productTypeId = productTypeId;
     }
 
