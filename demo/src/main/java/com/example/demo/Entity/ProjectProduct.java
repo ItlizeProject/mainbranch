@@ -15,13 +15,13 @@ public class ProjectProduct{
     //project_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Project.class)
 	@JsonIgnore
-	@JoinColumn(name = "projectId", referencedColumnName = "project_id", nullable = false)
+	@JoinColumn(name = "projectId", referencedColumnName = "project_id")
     private Project project;
 
     //product_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Product.class)
 	@JsonIgnore
-	@JoinColumn(name = "productId", referencedColumnName = "product_id", nullable = false)
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
     //create Constructor

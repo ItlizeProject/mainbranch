@@ -7,10 +7,11 @@ import java.util.Date;
 @Entity
 
 public class ProductType {
- 
+
+  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_type_id")
+    @Column(name = "product_type_id", unique = true)
     private Integer productTypeId;
 
     @Column(name = "application")
@@ -30,8 +31,8 @@ public class ProductType {
 
     @JsonIgnore
     @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
-    @JoinColumn(name = "productId", referencedColumnName="product_id")
-    private Product product;
+    @JoinColumn(name = "product_id", referencedColumnName="product_id")
+    private Product product;//I didn't creat Product class
 
     public ProductType() {
     }

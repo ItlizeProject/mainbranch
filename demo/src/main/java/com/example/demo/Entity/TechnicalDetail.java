@@ -9,16 +9,16 @@ public class TechnicalDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "technical_detail_id", unique = true)
-    private long technicalDetailID;
+    private Integer technicalDetailID;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "productId", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
     public TechnicalDetail() {
     }
-    public TechnicalDetail(int airflow, int power, int operatingVoltage, int fanSpeed) {
+    public TechnicalDetail (Integer airflow, Integer power, Integer operatingVoltage, Integer fanSpeed) {
         this.airflow = airflow;
         this.power = power;
         this.operatingVoltage = operatingVoltage;
@@ -26,59 +26,59 @@ public class TechnicalDetail {
     }
 
     @Column(name = "airflow")
-    private int airflow;
+    private Integer airflow;
     @Column(name = "power")
-    private int power;
+    private Integer power;
     @Column(name = "operating_voltage")
-    private int operatingVoltage;
+    private Integer operatingVoltage;
     @Column(name = "fan_speed")
-    private int fanSpeed;
+    private Integer fanSpeed;
 
-    public long getTechnicalDetailID() {
+    public Integer getTechnicalDetailID() {
         return technicalDetailID;
     }
 
-    public void setTechnicalDetailID(long technicalDetailID) {
+    public void setTechnicalDetailID (Integer technicalDetailID) {
         this.technicalDetailID = technicalDetailID;
     }
 
-    // public long getProductID() {
+    // public Integereger getProductID() {
     //     return productID;
     // }
 
-    // public void setProductID(long productID) {
+    // public void setProductID Integereger productID) {
     //     this.productID = productID;
     // }
 
-    public int getAirflow() {
+    public Integer getAirflow() {
         return airflow;
     }
 
-    public void setAirflow(int airflow) {
+    public void setAirflow (Integer airflow) {
         this.airflow = airflow;
     }
 
-    public int getPower() {
+    public Integer getPower() {
         return power;
     }
 
-    public void setPower(int power) {
+    public void setPower(Integer power) {
         this.power = power;
     }
 
-    public int getOperatingVoltage() {
+    public Integer getOperatingVoltage() {
         return operatingVoltage;
     }
 
-    public void setOperatingVoltage(int operatingVoltage) {
+    public void setOperatingVoltage (Integer operatingVoltage) {
         this.operatingVoltage = operatingVoltage;
     }
 
-    public int getFanSpeed() {
+    public Integer getFanSpeed() {
         return fanSpeed;
     }
 
-    public void setFanSpeed(int fanSpeed) {
+    public void setFanSpeed (Integer fanSpeed) {
         this.fanSpeed = fanSpeed;
     }
 
