@@ -1,7 +1,8 @@
 package com.example.demo.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -9,8 +10,8 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="project_id", unique = true)
-    private Long ProjectId;
+    @Column(name ="project_id")
+    private Integer ProjectId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
 	@JsonIgnore
@@ -19,7 +20,7 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
-    private List<ProjectProduct> ProjectProduct;
+    private List<ProjectProduct> ProjectProduct = new ArrayList<>();
 
     //create constructor
     public Project(){
@@ -34,11 +35,11 @@ public class Project {
 		this.user = user;
 	}
 
-    public Long getProjectId() {
+    public Integer getProjectId() {
         return ProjectId;
     }
 
-    public void setProjectId(Long projectId) {
+    public void setProjectId(Integer projectId) {
         ProjectId = projectId;
     }
 

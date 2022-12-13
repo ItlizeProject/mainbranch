@@ -1,17 +1,15 @@
 package com.example.demo.Entity;
 //modified by Victoria
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Description {
 
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(name = "description_id", unique=true)
-    private int descriptionId;
-
+    @Column(name = "description_id")
+    private Integer descriptionId;
 
     @Column(name = "manufacturer")
     private String manufacturer;
@@ -37,11 +35,11 @@ public class Description {
         this.model = model;
     }
 
-    public int getDescriptionId() {
+    public Integer getDescriptionId() {
         return descriptionId;
     }
 
-    public void setDescriptionId(int descriptionId) {
+    public void setDescriptionId(Integer descriptionId) {
         this.descriptionId = descriptionId;
     }
 

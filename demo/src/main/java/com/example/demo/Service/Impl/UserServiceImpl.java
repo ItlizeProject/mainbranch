@@ -1,4 +1,4 @@
-package com.example.demo.Service;
+package com.example.demo.Service.Impl;
 
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
@@ -11,8 +11,15 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
+
+
 //    @Autowired
     private UserRepository userRepository;
+
+//    public UserServiceImpl(UserRepository userRepository) {
+//        super();
+//        this.userRepository = userRepository;
+//    }
 
     @Override
     public User createUser(User user) {

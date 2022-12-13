@@ -2,7 +2,7 @@ package com.example.demo.Entity;
 //modified by Victoria
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.Date;
 @Entity
 
@@ -12,7 +12,7 @@ public class ProductType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_type_id", unique = true)
-    private int productTypeId;
+    private Integer productTypeId;
 
     @Column(name = "application")
     private String application;
@@ -45,11 +45,11 @@ public class ProductType {
         this.modelYear = modelYear;
     }
 
-    public int getProductTypeId() {
+    public Integer getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(int productTypeId) {
+    public void setProductTypeId(Integer productTypeId) {
         this.productTypeId = productTypeId;
     }
 
