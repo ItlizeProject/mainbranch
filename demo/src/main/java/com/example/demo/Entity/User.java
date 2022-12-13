@@ -12,7 +12,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="user_id", unique = true) //user id and make it UNIQUE type
-    private String userId;
+    private long userId;
 
     @Column(name = "user_name")
     private String userName;
@@ -68,11 +68,11 @@ public class User {
 //        this.product = product;
 //    }
 
-    public String getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

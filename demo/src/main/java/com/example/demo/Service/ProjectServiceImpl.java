@@ -10,7 +10,8 @@ import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService{
-    @Autowired
+
+//    @Autowired
     private ProjectRepository projectRepository;
     @Override
     public Project createProject(Project project) {
