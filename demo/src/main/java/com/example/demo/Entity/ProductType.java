@@ -10,7 +10,7 @@ public class ProductType {
  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_type_id", unique = true)
+    @Column(name = "product_type_id")
     private Integer productTypeId;
 
     @Column(name = "application")

@@ -7,11 +7,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class TechnicalDetailServiceImpl implements TechnicalDetailService {
-    private final TechnicalDetailRepository technicalDetailRepository;
-
-    public TechnicalDetailServiceImpl(TechnicalDetailRepository technicalDetailRepository) {
-        this.technicalDetailRepository = technicalDetailRepository;
-    }
+//    @Autowired
+    private TechnicalDetailRepository technicalDetailRepository;
 
     @Override
     public TechnicalDetail createDetail(TechnicalDetail detail) {
