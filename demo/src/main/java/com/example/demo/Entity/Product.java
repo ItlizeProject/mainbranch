@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.List;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
 public class Product {
@@ -19,7 +19,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id", unique = true)
-    private Long productId;
+    private Integer productId;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
@@ -75,13 +75,13 @@ public class Product {
     public void setCertification(String certification) {
         this.certification = certification;
     }
-    private Long ProductId;
+    private Integer ProductId;
 
-    public Long getProductId() {
+    public Integer getProductId() {
         return ProductId;
     }
 
-    public void setProductId(Long productId) {
+    public void setProductId(Integer productId) {
         ProductId = productId;
     }
 

@@ -1,6 +1,6 @@
 package com.example.demo.Entity;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -9,8 +9,8 @@ public class ProjectProduct{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="project_product_id", unique=true)
-    private Long ProjectProductId;
+    @Column(name="project_product_id")
+    private Integer ProjectProductId;
 
     //project_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Project.class)

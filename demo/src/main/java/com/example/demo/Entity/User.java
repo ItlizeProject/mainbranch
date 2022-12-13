@@ -1,9 +1,9 @@
 package com.example.demo.Entity;
 
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -11,8 +11,9 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="user_id", unique = true) //user id and make it UNIQUE type
-    private long userId;
+     //user id and make it UNIQUE type
+    //change to Integer
+    private Long userId;
 
     @Column(name = "user_name")
     private String userName;
@@ -25,7 +26,7 @@ public class User {
 
     @JsonIgnore
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true,targetEntity = Project.class)
-    private List<Project> projectList;
+    private List<Project> projectList = new ArrayList<>();
 
     public User() {
     }
@@ -68,11 +69,11 @@ public class User {
 //        this.product = product;
 //    }
 
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(long userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
