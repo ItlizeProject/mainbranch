@@ -10,7 +10,7 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Intege
     //    Optional<ProductType> findProductTypeByProductTypeId(Integer id);
     //Optional<ProductType> findBy(Integer id);//find by primary key
 
-    Optional<ProductType> findByProductId(Integer id);
+    Optional<ProductType> findByProduct(Integer id);
 
     Optional<List<ProductType>> findByApplication(String application);
 

@@ -1,6 +1,8 @@
 package com.example.demo.Service;
 
 import com.example.demo.Entity.Description;
+import com.example.demo.Entity.Product;
+
 import java.util.*;
 public interface DescriptionService {
     //abstract methods

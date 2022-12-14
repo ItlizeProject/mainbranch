@@ -27,7 +27,7 @@ public class ProductTypeServiceImp implements ProductTypeService {
 
     @Override
     public ProductType findProductTypeByProductId(Integer id) {
-        return repository.findByProductId(id).orElse(null);
+        return repository.findByProduct(id).orElse(null);
     }
 
     @Override

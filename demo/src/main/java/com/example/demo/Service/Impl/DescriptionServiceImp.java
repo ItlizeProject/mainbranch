@@ -1,6 +1,7 @@
 package com.example.demo.Service.Impl;
 //modified by Victoria
 import com.example.demo.Entity.Description;
+import com.example.demo.Entity.Product;
 import com.example.demo.Repository.DescriptionRepository;
 import com.example.demo.Service.DescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class DescriptionServiceImp implements DescriptionService {
 
     @Override
     public Description findDescriptionByProductId(Integer id) {
-        return repository.findByProductId(id).orElse(null);
+        return repository.findByProduct(id).orElse(null);
     }
 
     @Override
