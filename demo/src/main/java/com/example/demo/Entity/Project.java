@@ -14,9 +14,9 @@ public class Project {
     private Integer projectId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
-    @JsonIgnore
-    @JoinColumn(name = "userId", referencedColumnName = "user_id")
-    private User user;
+	@JsonIgnore
+	@JoinColumn(name = "userId", referencedColumnName = "user_id")
+	private User user;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
@@ -26,14 +26,14 @@ public class Project {
     public Project(){
 
     }
+    
+	public User getUser() {
+		return user;
+	}
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public void setUser(User user) {
+		this.user = user;
+	}
 
     public Integer getProjectId() {
         return projectId;
@@ -52,5 +52,12 @@ public class Project {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectId=" + projectId +
+                ", user=" + user +
+                ", projectProduct=" + projectProduct +
+                '}';
+    }
 }

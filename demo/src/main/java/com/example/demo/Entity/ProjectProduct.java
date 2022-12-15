@@ -51,5 +51,13 @@ public class ProjectProduct{
     public void setProjectProductId(Integer projectProductId) {
         this.projectProductId = projectProductId;
     }
-    
+
+    @Override
+    public String toString() {
+        return "ProjectProduct{" +
+                "projectProductId=" + projectProductId +
+                ", project=" + project +
+                ", product=" + product +
+                '}';
+    }
 }

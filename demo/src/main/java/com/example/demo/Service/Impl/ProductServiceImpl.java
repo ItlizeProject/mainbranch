@@ -31,12 +31,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Optional<Product> findProductByProductBrand(String brand) {
-        return productRepository.findProductByProductBrand(brand);
+        return productRepository.findByProductBrand(brand);
     }
 
     @Override
-    public Optional<Product> findProductByCertification(String certification) {
-        return productRepository.findProductByProductBrand(certification);
+    public Optional<Product> findByCertification(String certification) {
+        return productRepository.findProductByCertification(certification);
     }
 
     @Override

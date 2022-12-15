@@ -10,7 +10,7 @@ public interface ProductService {
     List<Product> findAllProduct();
     Product findProductById(Integer id);
     Optional<Product> findProductByProductBrand(String brand);
-    Optional<Product> findProductByCertification(String certification);
+    Optional<Product> findByCertification(String certification);
     String deleteProductById(Integer id);
 
 }

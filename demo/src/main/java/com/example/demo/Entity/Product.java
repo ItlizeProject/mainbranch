@@ -19,26 +19,26 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
     private List<ProjectProduct> projectProduct = new ArrayList<>();
- 
+
 
     //product_type_id(fk)
     @OneToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
-	@JoinColumn(name = "productTypeId", referencedColumnName = "product_type_id")
+    @JsonIgnore
+    @JoinColumn(name = "productTypeId", referencedColumnName = "product_type_id")
     private ProductType productType;
 
     //technical_detail_id(fk)
     @OneToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
-	@JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
+    @JsonIgnore
+    @JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
     private TechnicalDetail technicalDetail;
 
     //description_id(fk)
     @OneToOne(cascade = CascadeType.ALL)
-	@JsonIgnore
-	@JoinColumn(name = "description", referencedColumnName = "description_id")
+    @JsonIgnore
+    @JoinColumn(name = "description", referencedColumnName = "description_id")
     private Description description;
-    
+
     public Product(){
 
     }
