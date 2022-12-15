@@ -20,12 +20,6 @@ public class ProductTypeServiceImp implements ProductTypeService {
     }
 
     @Override
-    public ProductType save(ProductType productType) {
-        return repository.save(productType);
-    }
-
-
-    @Override
     public ProductType findProductTypeByProductId(Integer id) {
         return repository.findByProduct(id).orElse(null);
     }

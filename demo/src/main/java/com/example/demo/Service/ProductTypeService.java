@@ -8,8 +8,6 @@ import java.util.*;
 public interface ProductTypeService {
     ProductType createProductType(ProductType productType);
 
-    ProductType save(ProductType productType);
-
     ProductType findProductTypeByProductId(Integer id);
 
     List<ProductType> findAll(ProductType type);
