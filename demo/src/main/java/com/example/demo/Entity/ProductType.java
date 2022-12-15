@@ -4,11 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.util.Date;
+
+
 @Entity
 
 public class ProductType {
 
-  
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_type_id", unique = true)
@@ -31,7 +32,7 @@ public class ProductType {
 
     @JsonIgnore
     @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
-    @JoinColumn(name = "product_id", referencedColumnName="product_id")
+    @JoinColumn(name = "productId", referencedColumnName="product_id")
     private Product product;//I didn't creat Product class
 
     public ProductType() {

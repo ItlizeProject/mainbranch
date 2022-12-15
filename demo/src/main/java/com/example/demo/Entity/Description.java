@@ -1,7 +1,9 @@
 package com.example.demo.Entity;
 //modified by Victoria
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.persistence.*;
+import lombok.Builder;
 
 @Entity
 public class Description {
@@ -22,8 +24,8 @@ public class Description {
 
     @JsonIgnore
     @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
-    @JoinColumn(name = "product_id",referencedColumnName = "product_id")
-    private Product product;//I didn't creat Product class
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     public Description() {
 
