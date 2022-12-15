@@ -8,8 +8,6 @@ public interface DescriptionService {
     //abstract methods
     Description createDescription(Description description);
 
-    Description save(Description description);
-
     Description findDescriptionByDescriptionId(Integer id);
 
     Description findDescriptionByProductId(Integer id);
