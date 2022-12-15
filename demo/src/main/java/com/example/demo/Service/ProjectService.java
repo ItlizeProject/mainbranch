@@ -13,10 +13,9 @@ public interface ProjectService {
 
     List<Project> findByUser(User user);
 
-    Project findProjectByProjectId(long id);
-    String deleteProject(long id);
+    String deleteProject(Integer id);
 
-    Project findProjectByProjectProductId(long id);
+//    Project findProjectByProjectProductId(Integer id);
 
 
 }

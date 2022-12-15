@@ -11,7 +11,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="project_id")
-    private Integer ProjectId;
+    private Integer projectId;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
 	@JsonIgnore
@@ -20,7 +20,7 @@ public class Project {
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
-    private List<ProjectProduct> ProjectProduct = new ArrayList<>();
+    private List<ProjectProduct> projectProduct = new ArrayList<>();
 
     //create constructor
     public Project(){
@@ -36,19 +36,19 @@ public class Project {
 	}
 
     public Integer getProjectId() {
-        return ProjectId;
+        return projectId;
     }
 
     public void setProjectId(Integer projectId) {
-        ProjectId = projectId;
+        projectId = projectId;
     }
 
     public List<ProjectProduct> getProjectProduct() {
-        return ProjectProduct;
+        return projectProduct;
     }
 
     public void setProjectProduct(List<ProjectProduct> projectProduct) {
-        ProjectProduct = projectProduct;
+        this.projectProduct = projectProduct;
     }
 
 

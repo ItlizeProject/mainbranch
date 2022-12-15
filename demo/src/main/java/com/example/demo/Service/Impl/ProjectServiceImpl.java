@@ -11,12 +11,12 @@ import java.util.List;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
-    //@Autowired
+    @Autowired
     private ProjectRepository projectRepository;
-//    public ProjectServiceImpl(ProjectRepository projectRepository) {
-//        super();
-//        this.projectRepository = projectRepository;
-//    }
+    public ProjectServiceImpl(ProjectRepository projectRepository) {
+        super();
+        this.projectRepository = projectRepository;
+    }
     @Override
     public Project createProject(Project project) {
         return projectRepository.save(project);
@@ -37,21 +37,21 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findByUser(user).orElse(null);
     }
 
-    @Override
-    public Project findProjectByProjectId(long id) {
-        return projectRepository.findProjectById(id).orElse(null);
-    }
+//    @Override
+//    public Project findProjectByProjectId(Integer id) {
+//        return projectRepository.findProjectById(id).orElse(null);
+//    }
 
     @Override
-    public String deleteProject(long id) {
+    public String deleteProject(Integer id) {
         projectRepository.deleteById(id);
         return "Project "+id+" has been removed";
     }
 
-    @Override
-    public Project findProjectByProjectProductId(long id) {
-        return projectRepository.findProjectByProjectProductId(id).orElse(null);
-    }
+//    @Override
+//    public Project findProjectByProjectProductId(Integer id) {
+//        return projectRepository.findByProjectProduct(id).orElse(null);
+//    }
 
 //    @Override
 //    public void addProductToProject(Product product) {

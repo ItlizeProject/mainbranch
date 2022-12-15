@@ -11,15 +11,13 @@ import java.util.List;
 @Service
 public class UserServiceImpl implements UserService {
 
-
-
-//    @Autowired
+    @Autowired
     private UserRepository userRepository;
 
-//    public UserServiceImpl(UserRepository userRepository) {
-//        super();
-//        this.userRepository = userRepository;
-//    }
+    public UserServiceImpl(UserRepository userRepository) {
+        super();
+        this.userRepository = userRepository;
+    }
 
     @Override
     public User createUser(User user) {
@@ -32,12 +30,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(long id) {
+    public User findUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
     @Override
-    public String deleteUser(long id) {
+    public String deleteUser(Long id) {
         userRepository.deleteById(id);
         return "User " + id + " has been removed";
     }
@@ -45,5 +43,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByUsername(String username) {
         return userRepository.findByUserName(username).orElse(null);
+    }
+
+    @Override
+    public User findUserByUserType(String userType) {
+        return userRepository.findByUserType(userType).orElse(null);
     }
 }

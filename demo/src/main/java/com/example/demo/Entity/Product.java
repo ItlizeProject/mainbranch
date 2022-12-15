@@ -2,6 +2,7 @@ package com.example.demo.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
@@ -17,7 +18,7 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
-    private List<ProjectProduct> projectProduct;
+    private List<ProjectProduct> projectProduct = new ArrayList<>();
  
 
     //product_type_id(fk)

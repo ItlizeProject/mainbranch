@@ -20,6 +20,8 @@ public class User {
     @Column(name = "user_password")
     private String userPassword;
 
+
+    //change to enum class later for user type
     @Column(name = "user_type")
     private String userType;
 

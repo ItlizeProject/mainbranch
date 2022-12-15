@@ -24,11 +24,11 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/users/")
-    public User findById(@RequestParam("id") long id){
-        return userService.findUserById(id);
-
-    }
+//    @GetMapping("/users/")
+//    public User findById(@RequestParam("id") long id){
+//        return userService.findUserById(id);
+//
+//    }
 
 //    @PostMapping("/create")
 //    public User addNewUser(@RequestParam("userId") Long userId,
