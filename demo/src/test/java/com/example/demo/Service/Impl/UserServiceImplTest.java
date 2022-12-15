@@ -7,26 +7,28 @@ import com.example.demo.Service.UserService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+@SpringBootTest
 class UserServiceImplTest {
 
     UserRepository repository;
+    @Autowired
     UserServiceImpl service;
     @Test
     void createUser() {
         List<Project> usersProjectList = new ArrayList<>();
         User newUser = new User();
-        newUser.setUserId((long)3);
         newUser.setUserName("Simon");
         newUser.setUserPassword("abc123");
         newUser.setUserType("Manager");
         newUser.setProjectList(usersProjectList);
         service.createUser(newUser);
-        Assertions.assertEquals("Simon",repository.findById((long)3).get().getUserName());
+        Assertions.assertEquals(newUser.getUserName(),service.findUserById((long)1).getUserName());
     }
 
     @Test
@@ -41,9 +43,10 @@ class UserServiceImplTest {
         usersList.add(u1);
         usersList.add(u2);
         usersList.add(u3);
-        List<User> testUsersList = new ArrayList<>();
-        testUsersList = service.findUser();
-        Assertions.assertEquals(usersList,testUsersList);
+
+//        List<User> testUsersList;
+//        testUsersList = service.findUser();
+        Assertions.assertEquals(usersList,service.findUser());
 
     }
 
@@ -51,28 +54,27 @@ class UserServiceImplTest {
     void findUserById() {
         List<Project> usersProjectList = new ArrayList<>();
         User newUser = new User();
-        newUser.setUserId((long)3);
-        newUser.setUserName("Simon");
-        newUser.setUserPassword("abc123");
+//        newUser.setUserId((long)3);
+        newUser.setUserName("Simon2");
+        newUser.setUserPassword("abc1233");
         newUser.setUserType("Manager");
         newUser.setProjectList(usersProjectList);
         service.createUser(newUser);
-        Assertions.assertEquals(newUser, service.findUserById((long)3));
+        Assertions.assertEquals(newUser, service.findUserById((long)2));
     }
 
     @Test
     void deleteUser() {
         List<Project> usersProjectList = new ArrayList<>();
         User newUser = new User();
-        newUser.setUserId((long)3);
         newUser.setUserName("Simon");
         newUser.setUserPassword("abc123");
         newUser.setUserType("Manager");
         newUser.setProjectList(usersProjectList);
         service.createUser(newUser);
-        Assertions.assertNotNull(service.findUserById((long)3));
+        Assertions.assertNotNull(repository.findById((long)3));
         service.deleteUser((long)3);
-        Assertions.assertNull(service.findUserById((long)3));
+        Assertions.assertNull(repository.findById((long)3));
 
     }
 
