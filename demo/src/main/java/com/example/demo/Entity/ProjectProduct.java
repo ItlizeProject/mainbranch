@@ -10,7 +10,7 @@ public class ProjectProduct{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="project_product_id")
-    private Integer ProjectProductId;
+    private Integer projectProductId;
 
     //project_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Project.class)
@@ -21,14 +21,13 @@ public class ProjectProduct{
     //product_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Product.class)
     @JsonIgnore
-    @JoinColumn(name = "productId", referencedColumnName = "product_id")
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
     //create Constructor
     public ProjectProduct(){
 
     }
-
 
     public Product getProduct() {
         return product;
@@ -46,5 +45,12 @@ public class ProjectProduct{
         this.project = project;
     }
 
+    public Integer getProjectProductId() {
+        return projectProductId;
+    }
+
+    public void setProjectProductId(Integer projectProductId) {
+        this.projectProductId = projectProductId;
+    }
 
 }

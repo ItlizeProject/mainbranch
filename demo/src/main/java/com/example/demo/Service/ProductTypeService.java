@@ -8,9 +8,11 @@ import java.util.*;
 public interface ProductTypeService {
     ProductType createProductType(ProductType productType);
 
+    ProductType findProductTypeByProductTypeId(Integer id);
+
     ProductType findProductTypeByProductId(Integer id);
 
-    List<ProductType> findAll(ProductType type);
+    List<ProductType> findAll();
 
     String deleteProductTypeByProductTypeId(Integer id);
 

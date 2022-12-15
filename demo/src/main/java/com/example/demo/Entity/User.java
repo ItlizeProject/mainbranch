@@ -11,8 +11,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //user id and make it UNIQUE type
-    //change to Integer
     @Column(name = "user_id")
     private Long userId;
 
@@ -22,6 +20,8 @@ public class User {
     @Column(name = "user_password")
     private String userPassword;
 
+
+    //change to enum class later for user type
     @Column(name = "user_type")
     private String userType;
 

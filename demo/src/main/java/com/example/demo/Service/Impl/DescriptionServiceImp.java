@@ -36,7 +36,7 @@ public class DescriptionServiceImp implements DescriptionService {
     @Override
     public String deleteDescriptionByDescriptionId(Integer id) {
         repository.deleteById(id);
-        return id.toString();
+        return "Deleted" + id.toString();
     }
 
     //find by Manufacturer, Series, and Model

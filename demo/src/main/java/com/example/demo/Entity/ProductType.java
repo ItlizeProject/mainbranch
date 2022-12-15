@@ -33,7 +33,7 @@ public class ProductType {
     @JsonIgnore
     @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
     @JoinColumn(name = "productId", referencedColumnName="product_id")
-    private Product product;//I didn't creat Product class
+    private Product product;
 
     public ProductType() {
     }
@@ -100,5 +100,18 @@ public class ProductType {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductType{" +
+                "productTypeId=" + productTypeId +
+                ", application='" + application + '\'' +
+                ", type='" + type + '\'' +
+                ", mountingLocation='" + mountingLocation + '\'' +
+                ", accessories='" + accessories + '\'' +
+                ", modelYear=" + modelYear +
+                ", product=" + product +
+                '}';
     }
 }
