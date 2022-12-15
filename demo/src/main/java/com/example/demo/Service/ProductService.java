@@ -11,6 +11,6 @@ public interface ProductService {
     Product findProductById(Integer id);
     Optional<Product> findProductByProductBrand(String brand);
     Optional<Product> findProductByCertification(String certification);
-    void deleteProductById(Integer id);
+    String deleteProductById(Integer id);
 
 }
