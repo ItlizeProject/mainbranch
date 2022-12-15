@@ -57,50 +57,56 @@ class UserServiceImplTest {
 //        newUser.setUserId((long)3);
         newUser.setUserName("Simon2");
         newUser.setUserPassword("abc1233");
-        newUser.setUserType("Manager");
+        newUser.setUserType("Employee");
         newUser.setProjectList(usersProjectList);
         service.createUser(newUser);
-        Assertions.assertEquals(newUser, service.findUserById((long)2));
+        User testUser = service.findUserById((long)16);
+        Assertions.assertEquals("User{userId=16, userName='Simon2', userPassword='abc1233', userType='Employee', projectList=[]}", testUser.toString());
     }
 
     @Test
     void deleteUser() {
         List<Project> usersProjectList = new ArrayList<>();
+        Project proj1 = new Project();
+        usersProjectList.add(proj1);
         User newUser = new User();
         newUser.setUserName("Simon");
         newUser.setUserPassword("abc123");
         newUser.setUserType("Manager");
         newUser.setProjectList(usersProjectList);
         service.createUser(newUser);
-        Assertions.assertNotNull(repository.findById((long)3));
+        Assertions.assertNotNull(service.findUserById((long)3));
         service.deleteUser((long)3);
-        Assertions.assertNull(repository.findById((long)3));
+        Assertions.assertNull(service.findUserById((long)3));
 
     }
 
     @Test
     void findUserByUsername() {
-        List<Project> usersProjectList = new ArrayList<>();
-        User newUser = new User();
-        newUser.setUserId((long)3);
-        newUser.setUserName("Simon");
-        newUser.setUserPassword("abc123");
-        newUser.setUserType("Manager");
-        newUser.setProjectList(usersProjectList);
-        service.createUser(newUser);
-        Assertions.assertEquals(newUser, service.findUserByUsername("Simon"));
+//        List<Project> usersProjectList = new ArrayList<>();
+//        Project proj1 = new Project();
+//        usersProjectList.add(proj1);
+//        User newUser = new User();
+//        newUser.setUserName("SimonZh");
+//        newUser.setUserPassword("abc1233");
+//        newUser.setUserType("Employee");
+////        newUser.setProjectList(usersProjectList);
+//        service.createUser(newUser);
+        Assertions.assertEquals("User{userId=25, userName='SimonZh', userPassword='abc1233', userType='Employee', projectList=[]}", service.findUserByUsername("SimonZh").toString());
     }
 
     @Test
     void findUserByUserType() {
         List<Project> usersProjectList = new ArrayList<>();
+        Project proj1 = new Project();
+        usersProjectList.add(proj1);
         User newUser = new User();
-        newUser.setUserId((long)3);
-        newUser.setUserName("Simon");
-        newUser.setUserPassword("abc123");
-        newUser.setUserType("Manager");
-        newUser.setProjectList(usersProjectList);
+        newUser.setUserName("SimonZhen");
+        newUser.setUserPassword("passwordqwe123");
+        newUser.setUserType("AccountManager");
+//        newUser.setProjectList(usersProjectList);
         service.createUser(newUser);
-        Assertions.assertEquals(newUser, service.findUserByUserType("Manager"));
+        Assertions.assertEquals(newUser.toString(), service.findUserByUserType("AccountManager").toString());
+
     }
 }

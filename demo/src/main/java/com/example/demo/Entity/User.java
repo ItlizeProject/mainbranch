@@ -85,4 +85,15 @@ public class User {
     public void setProjectList(List<Project> projectList) {
         this.projectList = projectList;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userType='" + userType + '\'' +
+                ", projectList=" + projectList +
+                '}';
+    }
 }

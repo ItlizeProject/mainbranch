@@ -6,9 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ProjectProduct{
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="project_product_id")

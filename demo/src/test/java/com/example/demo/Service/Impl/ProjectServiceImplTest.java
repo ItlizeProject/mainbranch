@@ -45,8 +45,11 @@ class ProjectServiceImplTest {
     void findAll() {
         List<Project> projectList = new ArrayList<>();
         Project p1 = new Project();
+        service.save(p1);
         Project p2 = new Project();
+        service.save(p2);
         Project p3 = new Project();
+        service.save(p3);
         projectList.add(p1);
         projectList.add(p2);
         projectList.add(p3);
