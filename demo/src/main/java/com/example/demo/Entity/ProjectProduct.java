@@ -10,7 +10,7 @@ public class ProjectProduct{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="project_product_id")
-    private Integer ProjectProductId;
+    private Integer projectProductId;
 
     //project_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Project.class)
@@ -28,7 +28,6 @@ public class ProjectProduct{
     public ProjectProduct(){
 
     }
-
 
     public Product getProduct() {
         return product;

@@ -1,49 +1,44 @@
 package com.example.demo.Entity;
 
-//product_id(pk)
-//product_type_id(fk)
-//technical_detail_id(fk)
-//description_id(fk)
-//product_brand
-//certification
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.*;
 
 @Entity
+//@Table(name = "Products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", unique = true)
+    @Column(name = "product_id")
     private Integer productId;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
-    private List<ProjectProduct> projectProduct;
-
+    private List<ProjectProduct> projectProduct = new ArrayList<>();
+ 
 
     //product_type_id(fk)
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
-    @JoinColumn(name = "productTypeId", referencedColumnName = "product_type_id")
+	@JsonIgnore
+	@JoinColumn(name = "productTypeId", referencedColumnName = "product_type_id")
     private ProductType productType;
 
     //technical_detail_id(fk)
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
-    @JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
+	@JsonIgnore
+	@JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
     private TechnicalDetail technicalDetail;
 
     //description_id(fk)
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonIgnore
-    @JoinColumn(name = "description", referencedColumnName = "description_id")
+	@JsonIgnore
+	@JoinColumn(name = "description", referencedColumnName = "description_id")
     private Description description;
-
+    
     public Product(){
 
     }
@@ -75,7 +70,6 @@ public class Product {
     public void setCertification(String certification) {
         this.certification = certification;
     }
-
 
     public Integer getProductId() {
         return productId;
@@ -118,5 +112,5 @@ public class Product {
 
 
 
-
+    
 }
