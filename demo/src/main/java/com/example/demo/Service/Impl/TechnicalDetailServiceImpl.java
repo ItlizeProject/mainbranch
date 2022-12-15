@@ -12,12 +12,12 @@ import java.util.Optional;
 
 @Service
 public class TechnicalDetailServiceImpl implements TechnicalDetailService {
-//    @Autowired
+    @Autowired
     private TechnicalDetailRepository technicalDetailRepository;
 
     @Override
     public TechnicalDetail createDetail(TechnicalDetail detail) {
-        return technicalDetailRepository.save(detail);
+        return (TechnicalDetail) technicalDetailRepository.save(detail);
     }
 
     @Override
@@ -28,7 +28,7 @@ public class TechnicalDetailServiceImpl implements TechnicalDetailService {
 
     @Override
     public TechnicalDetail findDetailById(Integer id) {
-        return technicalDetailRepository.findById(id).orElse(null);
+        return (TechnicalDetail) technicalDetailRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -42,8 +42,8 @@ public class TechnicalDetailServiceImpl implements TechnicalDetailService {
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByVoltageBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByVoltageBetween(para1, para2);
+    public Optional<List<TechnicalDetail>> findProductByOperatingVoltageBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByOperatingVoltageBetween(para1, para2);
     }
 
     @Override
