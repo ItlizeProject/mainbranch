@@ -110,7 +110,16 @@ public class Product {
         this.projectProduct = projectProduct;
     }
 
-
-
-    
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", projectProduct=" + projectProduct +
+                ", productType=" + productType +
+                ", technicalDetail=" + technicalDetail +
+                ", description=" + description +
+                ", productBrand='" + productBrand + '\'' +
+                ", certification='" + certification + '\'' +
+                '}';
+    }
 }
