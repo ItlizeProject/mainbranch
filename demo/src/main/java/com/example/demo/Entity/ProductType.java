@@ -4,10 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import java.util.Date;
+
+
 @Entity
 
 public class ProductType {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
