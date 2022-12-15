@@ -11,9 +11,12 @@ public class TechnicalDetail {
     @Column(name = "technical_detail_id", unique = true)
     private Integer technicalDetailID;
 
+    // @Column(name = "product_id")
+    // private Integereger productID;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
+    @JoinColumn(name = "productId", referencedColumnName = "product_id")
     private Product product;
 
     public TechnicalDetail() {
@@ -87,5 +90,17 @@ public class TechnicalDetail {
     }
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "TechnicalDetail{" +
+                "technicalDetailID=" + technicalDetailID +
+                ", product=" + product +
+                ", airflow=" + airflow +
+                ", power=" + power +
+                ", operatingVoltage=" + operatingVoltage +
+                ", fanSpeed=" + fanSpeed +
+                '}';
     }
 }
