@@ -40,26 +40,9 @@ class DescriptionServiceImpTest {
 
     @Test
     void findAll() {
-        List<Description> res = descriptionService.findAll();
-//        System.out.println(res.toString());
-        Assertions.assertEquals("[Description{descriptionId=2, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=3, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=4, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=5, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=6, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=7, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=8, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=9, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=10, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=11, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=12, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=13, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=14, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=15, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=16, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=17, manufacturer='testManufacturer1', series='null', model='testModel1', product=null}, " +
-                "Description{descriptionId=18, manufacturer='testManufacturer2', series='null', model='testModel2', product=null}, " +
-                "Description{descriptionId=19, manufacturer='testManufacturer3', series='series3', model='testModel3', product=null}]", res.toString());
+        List<Description> list = descriptionService.findAll();
+//        System.out.println(list);
+        Assertions.assertEquals("run System.out.println(list; and copy-paste the print here", list.toString());
 
 
     }

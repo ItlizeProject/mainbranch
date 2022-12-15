@@ -19,13 +19,14 @@ class ProductTypeServiceImpTest {
     @Test
     void createProductType() {
         ProductType productType = new ProductType();
-        productType.setApplication("Outdoor");
-        productType.setType("Industrial");
-        productType.setMountingLocation("Wall");
-        productType.setAccessories("Without light");
+        productType.setApplication("Indoor");
+        productType.setType("Commercial");
+        productType.setMountingLocation("Roof");
+        productType.setAccessories("With light");
         //Q:how to set model_year?
         productTypeService.createProductType(productType);
 //        System.out.println(productType.toString());
+        //change the blow id when u test it!
         Assertions.assertEquals(productTypeService.findProductTypeByProductTypeId(3).getApplication(), productType.getApplication());
     }
 
@@ -37,9 +38,7 @@ class ProductTypeServiceImpTest {
     void findAll() {
         List<ProductType> list = productTypeService.findAll();
 //        System.out.println(list);
-        Assertions.assertEquals("[ProductType{productTypeId=1, application='Indoor', type='Commercial', mountingLocation='Roof', accessories='With light', modelYear=null, product=null}," +
-                " ProductType{productTypeId=2, application='Indoor', type='Commercial', mountingLocation='Roof', accessories='With light', modelYear=null, product=null}]"
-                , list.toString());
+        Assertions.assertEquals("run System.out.println(list); and copy-paste the print here", list.toString());
     }
 
     @Test
