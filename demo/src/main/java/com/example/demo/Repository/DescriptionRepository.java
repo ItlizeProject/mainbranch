@@ -1,11 +1,12 @@
 package com.example.demo.Repository;
 
-        import org.springframework.data.jpa.repository.JpaRepository;
-        import com.example.demo.Entity.Description;
+import com.example.demo.Entity.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import com.example.demo.Entity.Description;
 
-        import java.util.*;
+import java.util.*;
 
-public interface DescriptionRepository extends JpaRepository<Description, Integer> {
+public interface DescriptionRepository extends JpaRepository<Description, Integer>{
 
     // 声明repository的methods（写了名字之后jpa会自动帮我实现,起名很关键，比如写findByProductId，Jpa就会自动帮我实现通过ProductId在Description这张table里
     // 查找符合要求的tuple）
@@ -21,4 +22,3 @@ public interface DescriptionRepository extends JpaRepository<Description, Intege
     Optional<List<Description>> findByModel(String model);
 
 }
-

@@ -35,7 +35,8 @@ class DescriptionServiceImpTest {
 
     @Test
     void findDescriptionByProductId() {
-
+        //Product new prod
+        //product.set
     }
 
     @Test

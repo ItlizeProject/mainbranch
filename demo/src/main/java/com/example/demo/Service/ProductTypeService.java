@@ -1,6 +1,5 @@
 package com.example.demo.Service;
 
-import com.example.demo.Entity.Description;
 import com.example.demo.Entity.ProductType;
 
 import java.util.*;

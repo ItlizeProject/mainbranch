@@ -22,4 +22,3 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Intege
 
     Optional<List<ProductType>> findByModelYear(Date modelYear);
 }
-

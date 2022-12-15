@@ -1,9 +1,9 @@
 package com.example.demo.Entity;
 //modified by Victoria
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+//import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.persistence.*;
-import lombok.Builder;
+//import lombok.Builder;
 
 @Entity
 public class Description {

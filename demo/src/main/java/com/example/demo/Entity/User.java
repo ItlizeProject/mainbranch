@@ -11,8 +11,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    //user id and make it UNIQUE type
-    //change to Integer
     @Column(name = "user_id")
     private Long userId;
 
@@ -38,7 +36,7 @@ public class User {
         this.userName = userName;
         this.userPassword = userPassword;
     }
-
+    
 
     public String getUserName() {
         return userName;
@@ -86,5 +84,16 @@ public class User {
 
     public void setProjectList(List<Project> projectList) {
         this.projectList = projectList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userPassword='" + userPassword + '\'' +
+                ", userType='" + userType + '\'' +
+                ", projectList=" + projectList +
+                '}';
     }
 }
