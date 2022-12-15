@@ -7,6 +7,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class ProjectProduct{
 
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="project_product_id")
@@ -14,14 +16,14 @@ public class ProjectProduct{
 
     //project_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Project.class)
-    @JsonIgnore
-    @JoinColumn(name = "projectId", referencedColumnName = "project_id")
+	@JsonIgnore
+	@JoinColumn(name = "projectId", referencedColumnName = "project_id")
     private Project project;
 
     //product_id(fk)
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Product.class)
-    @JsonIgnore
-    @JoinColumn(name = "productId", referencedColumnName = "product_id")
+	@JsonIgnore
+	@JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
     //create Constructor
@@ -45,5 +47,12 @@ public class ProjectProduct{
         this.project = project;
     }
 
+    public Integer getProjectProductId() {
+        return projectProductId;
+    }
 
+    public void setProjectProductId(Integer projectProductId) {
+        this.projectProductId = projectProductId;
+    }
+    
 }
