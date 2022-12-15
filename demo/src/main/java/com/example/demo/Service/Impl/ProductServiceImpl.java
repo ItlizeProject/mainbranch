@@ -1,7 +1,8 @@
-package com.example.demo.Service;
+package com.example.demo.Service.Impl;
 
 import com.example.demo.Entity.Product;
 import com.example.demo.Repository.ProductRepository;
+import com.example.demo.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +25,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product findProductById(Long id) {
+    public Product findProductById(Integer id) {
         return productRepository.findById(id).orElse(null);
     }
 
@@ -39,8 +40,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public String deleteProductById(Long id) {
+    public void deleteProductById(Integer id) {
         productRepository.deleteById(id);
-        return id + "has been deleted";
     }
 }

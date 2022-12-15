@@ -1,9 +1,13 @@
-package com.example.demo.Service;
+package com.example.demo.Service.Impl;
 
+import com.example.demo.Entity.Product;
 import com.example.demo.Entity.TechnicalDetail;
 import com.example.demo.Repository.TechnicalDetailRepository;
+import com.example.demo.Service.TechnicalDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class TechnicalDetailServiceImpl implements TechnicalDetailService {
@@ -16,13 +20,13 @@ public class TechnicalDetailServiceImpl implements TechnicalDetailService {
     }
 
     @Override
-    public String deleteDetailById(Long id) {
+    public void deleteDetailById(Integer id) {
         technicalDetailRepository.deleteById(id);
-        return id + "has been deleted.";
     }
 
     @Override
-    public TechnicalDetail findDetailById(Long id) {
+    public TechnicalDetail findDetailById(Integer id) {
         return technicalDetailRepository.findById(id).orElse(null);
     }
+
 }

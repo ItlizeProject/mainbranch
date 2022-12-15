@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 @Repository
-public interface TechnicalDetailRepository extends JpaRepository<TechnicalDetail, Long> {
+public interface TechnicalDetailRepository extends JpaRepository<TechnicalDetail, Integer> {
 
 }
