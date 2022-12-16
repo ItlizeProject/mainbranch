@@ -32,23 +32,23 @@ public class TechnicalDetailServiceImpl implements TechnicalDetailService {
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByAirflowBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByAirflowBetween(para1, para2);
+    public List<TechnicalDetail> findProductByAirflowBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByAirflowBetween(para1, para2).orElse(null);
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByPowerBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByPowerBetween(para1, para2);
+    public List<TechnicalDetail> findProductByPowerBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByPowerBetween(para1, para2).orElse(null);
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByOperatingVoltageBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByOperatingVoltageBetween(para1, para2);
+    public List<TechnicalDetail> findProductByOperatingVoltageBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByOperatingVoltageBetween(para1, para2).orElse(null);
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByFanSpeedBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByFanSpeedBetween(para1, para2);
+    public List<TechnicalDetail> findProductByFanSpeedBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByFanSpeedBetween(para1, para2).orElse(null);
     }
 
 }
