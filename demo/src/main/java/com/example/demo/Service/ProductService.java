@@ -9,8 +9,8 @@ public interface ProductService {
     Product createProduct(Product product);
     List<Product> findAllProduct();
     Product findProductById(Integer id);
-    Optional<Product> findProductByProductBrand(String brand);
-    Optional<Product> findByCertification(String certification);
+    List<Product> findProductByProductBrand(String brand);
+    List<Product> findByCertification(String certification);
     String deleteProductById(Integer id);
 
 }
