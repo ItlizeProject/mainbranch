@@ -37,10 +37,10 @@ public class ProjectServiceImpl implements ProjectService {
         return projectRepository.findByUser(user).orElse(null);
     }
 
-//    @Override
-//    public Project findProjectByProjectId(Integer id) {
-//        return projectRepository.findProjectById(id).orElse(null);
-//    }
+    @Override
+    public Project findProjectByProjectId(Integer id) {
+        return projectRepository.findById(id).orElse(null);
+    }
 
     @Override
     public String deleteProject(Integer id) {

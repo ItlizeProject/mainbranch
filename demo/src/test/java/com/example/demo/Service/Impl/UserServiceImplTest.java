@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 class UserServiceImplTest {
 
-    UserRepository repository;
+//    UserRepository repository;
     @Autowired
     UserServiceImpl service;
     @Test
@@ -43,9 +43,6 @@ class UserServiceImplTest {
         usersList.add(u1);
         usersList.add(u2);
         usersList.add(u3);
-
-//        List<User> testUsersList;
-//        testUsersList = service.findUser();
         Assertions.assertEquals(usersList,service.findUser());
 
     }
@@ -83,15 +80,6 @@ class UserServiceImplTest {
 
     @Test
     void findUserByUsername() {
-//        List<Project> usersProjectList = new ArrayList<>();
-//        Project proj1 = new Project();
-//        usersProjectList.add(proj1);
-//        User newUser = new User();
-//        newUser.setUserName("SimonZh");
-//        newUser.setUserPassword("abc1233");
-//        newUser.setUserType("Employee");
-////        newUser.setProjectList(usersProjectList);
-//        service.createUser(newUser);
         Assertions.assertEquals("User{userId=25, userName='SimonZh', userPassword='abc1233', userType='Employee', projectList=[]}", service.findUserByUsername("SimonZh").toString());
     }
 
@@ -104,7 +92,6 @@ class UserServiceImplTest {
         newUser.setUserName("SimonZhen");
         newUser.setUserPassword("passwordqwe123");
         newUser.setUserType("AccountManager");
-//        newUser.setProjectList(usersProjectList);
         service.createUser(newUser);
         Assertions.assertEquals(newUser.toString(), service.findUserByUserType("AccountManager").toString());
 

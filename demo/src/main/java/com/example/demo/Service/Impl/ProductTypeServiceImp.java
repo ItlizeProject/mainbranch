@@ -1,5 +1,6 @@
 package com.example.demo.Service.Impl;
 //modified by Victoria
+import com.example.demo.Entity.Product;
 import com.example.demo.Entity.ProductType;
 import com.example.demo.Service.ProductTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +21,17 @@ public class ProductTypeServiceImp implements ProductTypeService {
     }
 
     @Override
-    public ProductType findProductTypeByProductId(Integer id) {
-        return repository.findByProduct(id).orElse(null);
+    public ProductType findProductTypeByProductTypeId(Integer id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
-    public List<ProductType> findAll(ProductType type) {
+    public ProductType findProductTypeByProduct(Product product) {
+        return repository.findByProduct(product).orElse(null);
+    }
+
+    @Override
+    public List<ProductType> findAll() {
         return repository.findAll();
     }
 
@@ -57,7 +63,7 @@ public class ProductTypeServiceImp implements ProductTypeService {
     }
 
     @Override
-    public List<ProductType> findProductTypeByModelYear(Date modelYear) {
+    public List<ProductType> findProductTypeByModelYear(Integer modelYear) {//Date
         return repository.findByModelYear(modelYear).orElse(null);
     }
 }
