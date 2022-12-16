@@ -1,5 +1,6 @@
 package com.example.demo.Repository;
 
+import com.example.demo.Entity.Product;
 import com.example.demo.Entity.ProductType;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,7 +11,7 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Intege
     //    Optional<ProductType> findProductTypeByProductTypeId(Integer id);
     //Optional<ProductType> findBy(Integer id);//find by primary key
 
-    Optional<ProductType> findByProduct(Integer id);
+    Optional<ProductType> findByProduct(Product product);
 
     Optional<List<ProductType>> findByApplication(String application);
 
@@ -20,5 +21,5 @@ public interface ProductTypeRepository extends JpaRepository<ProductType, Intege
 
     Optional<List<ProductType>> findByAccessories(String accessories);
 
-    Optional<List<ProductType>> findByModelYear(Date modelYear);
+    Optional<List<ProductType>> findByModelYear(Integer modelYear);//Date
 }

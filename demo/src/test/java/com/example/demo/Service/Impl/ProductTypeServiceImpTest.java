@@ -1,5 +1,6 @@
 package com.example.demo.Service.Impl;
 
+import com.example.demo.Entity.Product;
 import com.example.demo.Entity.ProductType;
 import com.example.demo.Service.ProductTypeService;
 import org.junit.jupiter.api.Assertions;
@@ -20,10 +21,15 @@ class ProductTypeServiceImpTest {
     void createProductType() {
         ProductType productType = new ProductType();
         productType.setApplication("Indoor");
-        productType.setType("Commercial");
-        productType.setMountingLocation("Roof");
+        productType.setType("Residential");
+        productType.setMountingLocation("Free standing");
         productType.setAccessories("With light");
-        //Q:how to set model_year?
+        productType.setModelYear(2010);//Integer type
+
+        Product product = new Product();//set product table's data via productType
+        product.setProductBrand("Emerson");
+        productType.setProduct(product);
+
         productTypeService.createProductType(productType);
 //        System.out.println(productType.toString());
         //change the blow id when u test it!
@@ -31,7 +37,17 @@ class ProductTypeServiceImpTest {
     }
 
     @Test
-    void findProductTypeByProductId() {
+    void findProductTypeByProduct() {
+        //create product object and input data
+        Product product = new Product();
+        product.setProductBrand("Emerson");
+        product.setProductId(2);
+        //based on the product data to retrieve ProductType(= database tuple)
+        ProductType res = productTypeService.findProductTypeByProduct(product);
+//        System.out.println(res);
+        Assertions.assertEquals("ProductType{productTypeId=3, application='Indoor', type='Residential', mountingLocation='Free standing', accessories='With light', modelYear=2010, product=Product{productId=2, projectProduct=[], productType=null, technicalDetail=null, description=null, productBrand='Emerson', certification='null'}}"
+        , res.toString());
+
     }
 
     @Test
@@ -81,5 +97,10 @@ class ProductTypeServiceImpTest {
 
     @Test
     void findProductTypeByModelYear() {
+        List<ProductType> list = productTypeService.findProductTypeByModelYear(2010);//Date
+//        System.out.println(list);
+        Assertions.assertEquals("[ProductType{productTypeId=1, application='Indoor', type='Residential', mountingLocation='Free standing', accessories='With light', modelYear=2010, product=null}, " +
+                "ProductType{productTypeId=2, application='Indoor', type='Residential', mountingLocation='Free standing', accessories='With light', modelYear=2010, product=null}]"
+        , list.toString());
     }
 }

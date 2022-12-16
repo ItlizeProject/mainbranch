@@ -7,7 +7,6 @@ import lombok.Builder;
 
 @Entity
 public class Description {
-
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     @Column(name = "description_id")

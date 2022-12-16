@@ -28,7 +28,7 @@ public class ProductType {
     private String accessories;
 
     @Column(name = "model_year")
-    private Date modelYear;
+    private Integer modelYear;//change: private Date modelYear;
 
     @JsonIgnore
     @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
@@ -38,7 +38,7 @@ public class ProductType {
     public ProductType() {
     }
 
-    public ProductType(String application, String type, String mountingLocation, String accessories, Date modelYear) {
+    public ProductType(String application, String type, String mountingLocation, String accessories, Integer modelYear) {
         this.application = application;
         this.type = type;
         this.mountingLocation = mountingLocation;
@@ -86,11 +86,11 @@ public class ProductType {
         this.accessories = accessories;
     }
 
-    public Date getModelYear() {
+    public Integer getModelYear() {
         return modelYear;
     }
 
-    public void setModelYear(Date modelYear) {
+    public void setModelYear(Integer modelYear) {
         this.modelYear = modelYear;
     }
 

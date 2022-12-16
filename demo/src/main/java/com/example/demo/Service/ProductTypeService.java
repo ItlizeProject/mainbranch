@@ -1,6 +1,7 @@
 package com.example.demo.Service;
 
 import com.example.demo.Entity.Description;
+import com.example.demo.Entity.Product;
 import com.example.demo.Entity.ProductType;
 
 import java.util.*;
@@ -10,7 +11,7 @@ public interface ProductTypeService {
 
     ProductType findProductTypeByProductTypeId(Integer id);
 
-    ProductType findProductTypeByProductId(Integer id);
+    ProductType findProductTypeByProduct(Product product);
 
     List<ProductType> findAll();
 
@@ -24,6 +25,6 @@ public interface ProductTypeService {
 
     List<ProductType> findProductTypeByAccessories(String accessories);
 
-    List<ProductType> findProductTypeByModelYear(Date modelYear);
+    List<ProductType> findProductTypeByModelYear(Integer modelYear);
 
 }

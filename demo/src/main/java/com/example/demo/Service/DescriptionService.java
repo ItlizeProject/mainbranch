@@ -10,7 +10,7 @@ public interface DescriptionService {
 
     Description findDescriptionByDescriptionId(Integer id);
 
-    Description findDescriptionByProductId(Integer id);
+    Description findDescriptionByProduct(Product product);
 
     List<Description> findAll();
 
