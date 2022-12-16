@@ -1,6 +1,7 @@
 package com.example.demo.Service.Impl;
 
 import com.example.demo.Entity.Description;
+import com.example.demo.Entity.Product;
 import com.example.demo.Service.DescriptionService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -19,11 +20,17 @@ class DescriptionServiceImpTest {
     @Test
     void createDescription() {
         Description description = new Description();
-        description.setManufacturer("testManufacturer2");
-        description.setModel("testModel2");
+        description.setManufacturer("testManufacturer3");
+        description.setModel("testModel3");
+        description.setSeries("series3");
+
+        Product product = new Product();//set product table date from description
+        product.setProductBrand("Minka");
+        description.setProduct(product);
+
         System.out.println(description.toString());
         descriptionService.createDescription(description);//database save the description object and create a tuple in db
-        Assertions.assertEquals(descriptionService.findDescriptionByDescriptionId(18).getManufacturer(), description.getManufacturer());
+        Assertions.assertEquals(descriptionService.findDescriptionByDescriptionId(1).getManufacturer(), description.getManufacturer());
     }
 
 
@@ -35,31 +42,51 @@ class DescriptionServiceImpTest {
 
     @Test
     void findDescriptionByProductId() {
-        //Product new prod
-        //product.set
+        Product product = new Product();
+        product.setProductBrand("Minka");
+        product.setProductId(1);
+        Description res = descriptionService.findDescriptionByProduct(product);
+//        System.out.println(res);
+        Assertions.assertEquals("Description{descriptionId=1, manufacturer='testManufacturer3', series='series3', model='testModel3', product=Product{productId=1, projectProduct=[], productType=null, technicalDetail=null, description=null, productBrand='Minka', certification='null'}}"
+        , res.toString());
+
+
     }
 
     @Test
     void findAll() {
+        List<Description> list = descriptionService.findAll();
+//        System.out.println(list);
+        Assertions.assertEquals("run System.out.println(list; and copy-paste the print here", list.toString());
+
+
     }
 
     @Test
-    void deleteDescriptionByDescriptionId() {
+    void deleteDescriptionByDescriptionId() {//test it
+        descriptionService.deleteDescriptionByDescriptionId(3);
+        System.out.println("The line with id =" + 3 + "has been removed");
 
     }
 
     @Test
     void findDescriptionByManufacturer() {
-        List<Description> list = descriptionService.findDescriptionByManufacturer("testManufacturer2");
+        List<Description> list = descriptionService.findDescriptionByManufacturer("testManufacturer3");
         System.out.println(list.toString());
-        Assertions.assertEquals("[Description{descriptionId=18, manufacturer='testManufacturer2', series='null', model='testModel2', product=null}]", list.toString());
+        Assertions.assertEquals("[Description{descriptionId=19, manufacturer='testManufacturer3', series='series3', model='testModel3', product=null}]", list.toString());
     }
 
     @Test
     void findDescriptionBySeries() {
+        List<Description> list = descriptionService.findDescriptionBySeries("series3");
+        System.out.println(list.toString());
+        Assertions.assertEquals("[Description{descriptionId=19, manufacturer='testManufacturer3', series='series3', model='testModel3', product=null}]", list.toString());
     }
 
     @Test
     void findDescriptionByModel() {
+        List<Description> list = descriptionService.findDescriptionByModel("testModel3");
+        System.out.println(list.toString());
+        Assertions.assertEquals("[Description{descriptionId=19, manufacturer='testManufacturer3', series='series3', model='testModel3', product=null}]", list.toString());
     }
 }

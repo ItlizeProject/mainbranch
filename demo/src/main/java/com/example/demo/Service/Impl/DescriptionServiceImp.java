@@ -24,8 +24,8 @@ public class DescriptionServiceImp implements DescriptionService {
     }
 
     @Override
-    public Description findDescriptionByProductId(Integer id) {
-        return repository.findByProduct(id).orElse(null);
+    public Description findDescriptionByProduct(Product product) {
+        return repository.findByProduct(product).orElse(null);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class DescriptionServiceImp implements DescriptionService {
     @Override
     public String deleteDescriptionByDescriptionId(Integer id) {
         repository.deleteById(id);
-        return "Deleted: " +id.toString();
+        return "Deleted" + id.toString();
     }
 
     //find by Manufacturer, Series, and Model
