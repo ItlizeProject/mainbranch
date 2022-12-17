@@ -30,13 +30,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Optional<Product> findProductByProductBrand(String brand) {
-        return productRepository.findByProductBrand(brand);
+    public List<Product> findProductByProductBrand(String brand) {
+        return (List<Product>) productRepository.findByProductBrand(brand).orElse(null);
     }
 
     @Override
-    public Optional<Product> findByCertification(String certification) {
-        return productRepository.findProductByCertification(certification);
+    public List<Product> findByCertification(String certification) {
+        return (List<Product>) productRepository.findProductByCertification(certification).orElse(null);
     }
 
     @Override

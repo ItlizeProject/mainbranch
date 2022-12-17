@@ -52,5 +52,12 @@ public class Project {
     }
 
 
-
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectId=" + projectId +
+                ", user=" + user +
+                ", projectProduct=" + projectProduct +
+                '}';
+    }
 }

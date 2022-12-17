@@ -12,12 +12,12 @@ import java.util.Optional;
 
 @Service
 public class TechnicalDetailServiceImpl implements TechnicalDetailService {
-    //    @Autowired
+    @Autowired
     private TechnicalDetailRepository technicalDetailRepository;
 
     @Override
     public TechnicalDetail createDetail(TechnicalDetail detail) {
-        return technicalDetailRepository.save(detail);
+        return (TechnicalDetail) technicalDetailRepository.save(detail);
     }
 
     @Override
@@ -28,27 +28,27 @@ public class TechnicalDetailServiceImpl implements TechnicalDetailService {
 
     @Override
     public TechnicalDetail findDetailById(Integer id) {
-        return technicalDetailRepository.findById(id).orElse(null);
+        return (TechnicalDetail) technicalDetailRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByAirflowBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByAirflowBetween(para1, para2);
+    public List<TechnicalDetail> findProductByAirflowBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByAirflowBetween(para1, para2).orElse(null);
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByPowerBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByPowerBetween(para1, para2);
+    public List<TechnicalDetail> findProductByPowerBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByPowerBetween(para1, para2).orElse(null);
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByVoltageBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByOperatingVoltageBetween(para1, para2);
+    public List<TechnicalDetail> findProductByOperatingVoltageBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByOperatingVoltageBetween(para1, para2).orElse(null);
     }
 
     @Override
-    public Optional<List<TechnicalDetail>> findProductByFanSpeedBetween(Integer para1, Integer para2) {
-        return technicalDetailRepository.findProductByFanSpeedBetween(para1, para2);
+    public List<TechnicalDetail> findProductByFanSpeedBetween(Integer para1, Integer para2) {
+        return technicalDetailRepository.findProductByFanSpeedBetween(para1, para2).orElse(null);
     }
 
 }

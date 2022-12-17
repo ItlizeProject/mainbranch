@@ -30,13 +30,13 @@ public class Product {
     //technical_detail_id(fk)
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
+    @JoinColumn(name = "technicalDetailId", referencedColumnName = "technical_detail_id")
     private TechnicalDetail technicalDetail;
 
     //description_id(fk)
     @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    @JoinColumn(name = "description", referencedColumnName = "description_id")
+    @JoinColumn(name = "descriptionId", referencedColumnName = "description_id")
     private Description description;
 
     public Product(){

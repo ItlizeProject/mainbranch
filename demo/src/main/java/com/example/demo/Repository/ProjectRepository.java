@@ -14,4 +14,3 @@ public interface ProjectRepository extends JpaRepository<Project,Integer> {
 //    Optional<Project> findProjectByProjectProductList(ProjectProduct projectProductList);
 //    Optional<List<Product>>
 }
-

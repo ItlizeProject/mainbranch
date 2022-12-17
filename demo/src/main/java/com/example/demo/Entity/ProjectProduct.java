@@ -6,7 +6,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ProjectProduct{
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="project_product_id")
@@ -53,4 +52,12 @@ public class ProjectProduct{
         this.projectProductId = projectProductId;
     }
 
+    @Override
+    public String toString() {
+        return "ProjectProduct{" +
+                "projectProductId=" + projectProductId +
+                ", project=" + project +
+                ", product=" + product +
+                '}';
+    }
 }
