@@ -4,6 +4,8 @@ import com.example.demo.Entity.Description;
 import com.example.demo.Entity.Product;
 
 import java.util.*;
+
+//Service Layer
 public interface DescriptionService {
     //abstract methods
     Description createDescription(Description description);

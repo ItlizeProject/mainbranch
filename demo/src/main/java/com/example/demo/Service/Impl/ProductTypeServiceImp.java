@@ -38,7 +38,7 @@ public class ProductTypeServiceImp implements ProductTypeService {
     @Override
     public String deleteProductTypeByProductTypeId(Integer id) {
         repository.deleteById(id);
-        return id.toString();
+        return "Deleted: id=" + id.toString();
     }
 
     //find by Application, Type, Accessories, ModelYear

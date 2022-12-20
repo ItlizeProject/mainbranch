@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
 import jakarta.persistence.*;
 import lombok.Builder;
 
+//Domain Layer
 @Entity
 public class Description {
     @Id

@@ -6,6 +6,7 @@ import com.example.demo.Entity.Description;
 
 import java.util.*;
 
+//DAO Layer
 public interface DescriptionRepository extends JpaRepository<Description, Integer>{
 
     // 声明repository的methods（写了名字之后jpa会自动帮我实现,起名很关键，比如写findByProductId，Jpa就会自动帮我实现通过ProductId在Description这张table里

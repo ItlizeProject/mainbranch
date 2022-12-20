@@ -6,8 +6,11 @@ import com.example.demo.Repository.DescriptionRepository;
 import com.example.demo.Service.DescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
+//Service Layer
 @Service//set DescriptionServiceImp as a bean
 public class DescriptionServiceImp implements DescriptionService {
     @Autowired//to achieve dependency injection(now DescriptionServiceImp can use all methods from DescriptionRepository)
@@ -36,7 +39,7 @@ public class DescriptionServiceImp implements DescriptionService {
     @Override
     public String deleteDescriptionByDescriptionId(Integer id) {
         repository.deleteById(id);
-        return "Deleted" + id.toString();
+        return "Deleted: id=" + id.toString();
     }
 
     //find by Manufacturer, Series, and Model
