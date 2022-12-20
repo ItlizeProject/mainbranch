@@ -20,17 +20,17 @@ class DescriptionServiceImpTest {
     @Test
     void createDescription() {
         Description description = new Description();
-        description.setManufacturer("testManufacturer3");
-        description.setModel("testModel3");
-        description.setSeries("series3");
+        description.setManufacturer("testManufacturer4");
+        description.setModel("testModel4");
+        description.setSeries("series4");
 
         Product product = new Product();//set product table date from description
-        product.setProductBrand("Minka");
+        product.setProductBrand("Emerson");
         description.setProduct(product);
 
         System.out.println(description.toString());
         descriptionService.createDescription(description);//database save the description object and create a tuple in db
-        Assertions.assertEquals(descriptionService.findDescriptionByDescriptionId(1).getManufacturer(), description.getManufacturer());
+        Assertions.assertEquals(descriptionService.findDescriptionByDescriptionId(2).getManufacturer(), description.getManufacturer());
     }
 
 
@@ -73,20 +73,20 @@ class DescriptionServiceImpTest {
     void findDescriptionByManufacturer() {
         List<Description> list = descriptionService.findDescriptionByManufacturer("testManufacturer3");
         System.out.println(list.toString());
-        Assertions.assertEquals("[Description{descriptionId=19, manufacturer='testManufacturer3', series='series3', model='testModel3', product=null}]", list.toString());
+        Assertions.assertEquals("[Description{descriptionId=1, manufacturer='testManufacturer3', series='series3', model='testModel3', product=Product{productId=1, projectProduct=[], productType=null, technicalDetail=null, description=null, productBrand='Minka', certification='null'}}]", list.toString());
     }
 
     @Test
     void findDescriptionBySeries() {
         List<Description> list = descriptionService.findDescriptionBySeries("series3");
         System.out.println(list.toString());
-        Assertions.assertEquals("[Description{descriptionId=19, manufacturer='testManufacturer3', series='series3', model='testModel3', product=null}]", list.toString());
+        Assertions.assertEquals("[Description{descriptionId=1, manufacturer='testManufacturer3', series='series3', model='testModel3', product=Product{productId=1, projectProduct=[], productType=null, technicalDetail=null, description=null, productBrand='Minka', certification='null'}}]", list.toString());
     }
 
     @Test
     void findDescriptionByModel() {
         List<Description> list = descriptionService.findDescriptionByModel("testModel3");
         System.out.println(list.toString());
-        Assertions.assertEquals("[Description{descriptionId=19, manufacturer='testManufacturer3', series='series3', model='testModel3', product=null}]", list.toString());
+        Assertions.assertEquals("[Description{descriptionId=1, manufacturer='testManufacturer3', series='series3', model='testModel3', product=Product{productId=1, projectProduct=[], productType=null, technicalDetail=null, description=null, productBrand='Minka', certification='null'}}]", list.toString());
     }
 }
