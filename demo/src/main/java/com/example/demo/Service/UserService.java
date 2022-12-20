@@ -14,6 +14,12 @@ public interface UserService {
 
     User findUserByUserType(String userType);
 
+    void clear();
+
+    boolean update(String userName, User user);
+
+
+
 
 
 }
