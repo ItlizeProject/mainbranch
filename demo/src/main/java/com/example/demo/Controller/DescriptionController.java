@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 //Controller Layer
-@RestController//= @ResponseBody+@Controller, 表明当前类是控制器且返回的是一组数据，不是页面
+@RestController//= @ResponseBody+@Controller, 表明当前类是控制器且返回的是一组数据，不是跳转页面
 @RequestMapping("/descriptionController")//right?need"/" or not?
 public class DescriptionController {
     @Autowired
