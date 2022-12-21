@@ -22,7 +22,7 @@ public class Description {
     @Column(name = "model")
     private String model;
 
-    @JsonIgnore
+    @JsonIgnore//作用是后端发送给前端数据的时候让JSON file里不包括这个attribute（即将其忽略）
     @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
     @JoinColumn(name = "product_id")
     private Product product;
