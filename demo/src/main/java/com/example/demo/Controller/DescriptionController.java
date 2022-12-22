@@ -98,7 +98,7 @@ public class DescriptionController {
     }
 
     @DeleteMapping("/deleteDescription")
-    public ResponseEntity<?> deleteDescription(@RequestParam Integer id) {
+    public ResponseEntity<?> deleteDescription(@RequestParam("id") Integer id) {
         Description description = descriptionService.findDescriptionByDescriptionId(id);
         if (description == null) {
             return new ResponseEntity<>("{\"error\":\"description not found!\"}", HttpStatus.NOT_FOUND);

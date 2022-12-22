@@ -21,6 +21,11 @@ public class ProductTypeServiceImp implements ProductTypeService {
     }
 
     @Override
+    public ProductType updateProductType(ProductType productType) {
+        return repository.save(productType);
+    }
+
+    @Override
     public ProductType findProductTypeByProductTypeId(Integer id) {
         return repository.findById(id).orElse(null);
     }

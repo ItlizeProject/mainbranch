@@ -20,6 +20,11 @@ public class DescriptionServiceImp implements DescriptionService {
     }
 
     @Override
+    public Description updateDescription(Description description) {
+        return repository.save(description);
+    }
+
+    @Override
     public Description findDescriptionByDescriptionId(Integer id) {
         return repository.findById(id).orElse(null);//based on what I defined in Repository
     }

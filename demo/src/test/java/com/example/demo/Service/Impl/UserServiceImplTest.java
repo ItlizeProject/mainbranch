@@ -23,12 +23,12 @@ class UserServiceImplTest {
     void createUser() {
         List<Project> usersProjectList = new ArrayList<>();
         User newUser = new User();
-        newUser.setUserName("Simon");
+        newUser.setUserName("Victoria");
         newUser.setUserPassword("abc123");
         newUser.setUserType("Manager");
         newUser.setProjectList(usersProjectList);
         service.createUser(newUser);
-        Assertions.assertEquals(newUser.getUserName(),service.findUserById((long)1).getUserName());
+        Assertions.assertEquals(newUser.getUserName(),service.findUserById((long)5).getUserName());
     }
 
     @Test

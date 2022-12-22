@@ -10,6 +10,8 @@ public interface DescriptionService {
     //abstract methods
     Description createDescription(Description description);
 
+    Description updateDescription(Description description);
+
     Description findDescriptionByDescriptionId(Integer id);
 
     Description findDescriptionByProduct(Product product);
