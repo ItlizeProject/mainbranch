@@ -6,9 +6,7 @@ import com.example.demo.Repository.DescriptionRepository;
 import com.example.demo.Service.DescriptionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 //Service Layer
 @Service//set DescriptionServiceImp as a bean

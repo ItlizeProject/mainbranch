@@ -4,6 +4,7 @@ import com.example.demo.Entity.Description;
 import com.example.demo.Entity.Product;
 import com.example.demo.Repository.DescriptionRepository;
 import com.example.demo.Service.DescriptionService;
+import com.example.demo.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,9 @@ import java.util.List;
 public class DescriptionController {
     @Autowired
     private DescriptionService descriptionService;
+
+    @Autowired
+    private ProductService productService;
 
     @GetMapping("/description")
     public ResponseEntity<?> listAllDescription() {//to findAll
@@ -38,16 +42,22 @@ public class DescriptionController {
         return new ResponseEntity<>(description, HttpStatus.OK);
     }
 
-    @PostMapping("/createDescription")//add mapping
-    public ResponseEntity<?> addDescription(@RequestParam("manufacturer") String manufacturer,
+    //hint:addDescription method need to ask client to input productId because any changes to Description table can be thought as
+    // change to Product table, the productID is used as a connection between two table.
+    @PostMapping("/createDescription")
+    public ResponseEntity<?> addDescription(@RequestParam("productId") Integer id,
+                                            @RequestParam("manufacturer") String manufacturer,
                                               @RequestParam("series") String series,
-                                              @RequestParam("model") String model){//need product_id?
+                                              @RequestParam("model") String model){
 
         Description description1 = new Description();
         description1.setManufacturer(manufacturer);
         description1.setSeries(series);
         description1.setModel(model);
-        Description res = descriptionService.createDescription(description1);
+
+        Product product1 = productService.findProductById(id);//find product by id
+        description1.setProduct(product1);//put product into  description
+        Description res = descriptionService.createDescription(description1);//put description data into database
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
