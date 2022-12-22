@@ -2,14 +2,20 @@ package com.example.demo.Controller;
 import com.example.demo.Entity.Project;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
+import com.example.demo.Service.MyUserLoginDetailsService;
 import com.example.demo.Service.UserService;
 import com.example.demo.Service.Impl.UserServiceImpl;
 import com.example.demo.Service.ProjectService;
+import com.example.demo.util.JwtUtil;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,9 +24,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("user")
 public class UserController {
+//    @Autowired
+//    private AuthenticationManager myauthenticaitonManager;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JwtUtil jwtTokenUtil;
+
+    @Autowired
+    private MyUserLoginDetailsService userDetailsService;
     @GetMapping("/user")
     public ResponseEntity<?> allUsers(){
         List<User> users = userService.findUser();
@@ -39,7 +55,6 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.OK);
 
     }
-
     @PostMapping("/createUser")
     public ResponseEntity<?> addUser(@RequestParam("userId") Long userId,
                            @RequestParam("userName") String username,
@@ -54,6 +69,26 @@ public class UserController {
         newUser.setProjectList(project);
         User createdUser = userService.createUser(newUser);
         return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
+    }
+    //sign in
+    @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    public ResponseEntity<?> createAuthenticationToken(@RequestParam(name="username") String username,
+                                                       @RequestParam(name="password") String password)
+    //@RequestBody User User)
+            throws Exception {
+
+//        try {
+//            myauthenticaitonManager.authenticate(
+//                    new UsernamePasswordAuthenticationToken(username,password)//User.getUsername(), User.getPassword())
+//            );
+//        }
+//        catch (BadCredentialsException e) {
+//            throw new Exception("Incorrect username or password", e);
+//        }
+        final UserDetails userDetails = userDetailsService
+                .loadUserByUsername(username);//User.getUsername());
+        final String jwt = jwtTokenUtil.generateToken(userDetails);
+        return  new ResponseEntity<>(jwt, HttpStatus.OK);
     }
 
 }
