@@ -15,7 +15,7 @@ public class Project {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
     @JsonIgnore
-    @JoinColumn(name = "userId", referencedColumnName = "user_id")
+    @JoinColumn(name = "userId", referencedColumnName = "user_id")//userId is the attribute name of table Project
     private User user;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
