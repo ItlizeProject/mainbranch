@@ -26,7 +26,7 @@ public class ProjectController {
     @Autowired
     ProjectProductService projectProductService;
 
-    @GetMapping("/project")
+    @GetMapping("/project")//passed
     public ResponseEntity<?> listAllProject() {//to findAll
 
         List<Project> list = projectService.findAll();
@@ -54,7 +54,7 @@ public class ProjectController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @PostMapping("/createProject")
+    @PostMapping("/createProject")//passed
     public ResponseEntity<?> addProject(@RequestParam("userId") Long userId){
 
         User user = userService.findUserById(userId);//get user info
@@ -66,12 +66,20 @@ public class ProjectController {
         return new ResponseEntity<>(project1, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/deleteProject")
-    public ResponseEntity<?> deleteProject(@RequestParam Integer id) {//?????????????does user know project id?
+    @DeleteMapping("/deleteProject")//Q:when I try to delete, user with input id are all deleted
+    public ResponseEntity<?> deleteProject(@RequestParam("id") Integer id) {
         Project project = projectService.findProjectByProjectId(id);
         if (project == null) {
             return new ResponseEntity<>("{\"error\":\"project not found!\"}", HttpStatus.NOT_FOUND);
         }
+        //explanation to next two lines:
+        //action: set userId in project table as null before delete
+        //reason: if userId duplicate in project table, when try to delete project, related line(same userID) in User table would be deleted.
+        //then, the deletion of user table will lead to the deletion of project (because of cascade = CascadeType.ALL setting in user entity one-to-many with project)
+        //result: in project table, all lines with same specific userID will all be deleted
+        project.setUser(null);
+        projectService.save(project);
+
         String s = projectService.deleteProject(id);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }

@@ -9,6 +9,8 @@ import java.util.*;
 public interface ProductTypeService {
     ProductType createProductType(ProductType productType);
 
+    ProductType updateProductType(ProductType productType);
+
     ProductType findProductTypeByProductTypeId(Integer id);
 
     ProductType findProductTypeByProduct(Product product);

@@ -18,12 +18,12 @@ public class ProjectServiceImpl implements ProjectService {
         this.projectRepository = projectRepository;
     }
     @Override
-    public Project createProject(Project project) {
+    public Project createProject(Project project) {//for create?
         return projectRepository.save(project);
     }
 
     @Override
-    public Project save(Project project) {
+    public Project save(Project project) {//for update?
         return projectRepository.save(project);
     }
 
