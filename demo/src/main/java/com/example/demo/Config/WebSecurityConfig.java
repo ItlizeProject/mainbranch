@@ -11,9 +11,12 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -35,6 +38,49 @@ public class WebSecurityConfig {
 //    public AuthenticationManager authenticationManagerBean() throws Exception {
 //        return super.authenticationManagerBean();
 //    }
+
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, MyUserLoginDetailsService userDetailsService)
+            throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(bCryptPasswordEncoder)
+                .and()
+                .build();
+    }
+
+    //instead of builder, use InMemoryUserDetailsManager
+    @Autowired
+    //Authentication
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        // Configure database-based user password query.
+        // Password uses BCryptEncoder (combined with random salt and encryption algorithm) that comes with security.
+        //Override the UserdatailsService class
+        auth.userDetailsService(userService)
+                //Override the default password verification class
+                .passwordEncoder(passwordEncoder());
+    }
+
+
+//    @Bean
+//    public InMemoryUserDetailsManager userDetailsService() {
+//        MyUserLoginDetailsService user = User.withDefaultPasswordEncoder()
+//                .username("user")
+//                .password("password")
+//                .roles("USER")
+//                .build();
+//        return new InMemoryUserDetailsManager(user);
+//    }
+
+
+
+    //configure for http security non-deprecated
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf()
@@ -59,47 +105,37 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    protected void configure(HttpSecurity httpSecurity) throws Exception {
+//
+//
+//        httpSecurity.csrf().disable()
+//                //Cross-origin-resource-sharing
+//                .cors().and()
+//                .authorizeRequests()
+//                .requestMatchers("/user/authenticate").permitAll()
+//                .requestMatchers("/user/createUser").permitAll()
+//                .requestMatchers("/users/admin/**").hasRole("ADMIN")
+//                .anyRequest().fullyAuthenticated();// others need to be accessed after authentication
+//
+//
+//        httpSecurity
+//                .exceptionHandling().and()
+//                .sessionManagement()
+//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//
+//
+//        httpSecurity
+//                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+//
+//    }
 
-    @Autowired
-    //Authentication
-    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Configure database-based user password query.
-        // Password uses BCryptEncoder (combined with random salt and encryption algorithm) that comes with security.
-        //Override the UserdatailsService class
-        auth.userDetailsService(userService)
-                //Override the default password verification class
-                .passwordEncoder(passwordEncoder());
-    }
-
-
-    @Bean
-    protected void configure(HttpSecurity httpSecurity) throws Exception {
-
-
-        httpSecurity.csrf().disable()
-                //Cross-origin-resource-sharing
-                .cors().and()
-                .authorizeRequests()
-                .requestMatchers("/user/authenticate").permitAll()
-                .requestMatchers("/user/createUser").permitAll()
-                .requestMatchers("/users/admin/**").hasRole("ADMIN")
-                .anyRequest().fullyAuthenticated();// others need to be accessed after authentication
-
-
-        httpSecurity
-                .exceptionHandling().and()
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-
-        httpSecurity
-                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-
-    }
+//    @Bean
+//    public WebSecurityCustomizer webSecurityCustomizer() {
+//        return (web) -> web.debug(securityDebug)
+//                .ignoring()
+//                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
+//    }
 
 
     @Bean
@@ -113,56 +149,7 @@ public class WebSecurityConfig {
         };
     }
 
-//    @Override
-//    @Bean
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
 
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-//    @Bean
-//    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, MyUserLoginDetailsService userDetailService)
-//            throws Exception {
-//        return http.getSharedObject(AuthenticationManagerBuilder.class)
-//                .userDetailsService(userService)
-//                .passwordEncoder(bCryptPasswordEncoder)
-//                .and()
-//                .build();
-//    }
-////    @Autowired
-////    //Authentication
-////    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-////        auth.userDetailsService(userService)
-////                //Override the default password verification class
-////                .passwordEncoder(passwordEncoder());
-////    }
-////    @Bean
-//
-//    @Bean
-//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//        http.csrf()
-//                .disable()
-//                .authorizeRequests()
-//                .requestMatchers(HttpMethod.DELETE)
-//                .hasRole("ADMIN")
-//                .requestMatchers("/admin/**")
-//                .hasAnyRole("ADMIN")
-//                .requestMatchers("/user/**")
-//                .hasAnyRole("USER", "ADMIN")
-//                .requestMatchers("/login/**")
-//                .anonymous()
-//                .anyRequest()
-//                .authenticated()
-//                .and()
-//                .httpBasic()
-//                .and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
 //        return http.build();
 //    }
 //    @Bean
