@@ -40,7 +40,7 @@ public class User {
     private Date lastUpdated;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.EAGER,orphanRemoval = true,targetEntity = Project.class)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER,orphanRemoval = true,targetEntity = Project.class)
     private List<Project> projectList = new ArrayList<>();
 
     public User() {

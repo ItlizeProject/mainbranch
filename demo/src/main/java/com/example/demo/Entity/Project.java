@@ -13,7 +13,7 @@ public class Project {
     @Column(name ="project_id")
     private Integer projectId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER, targetEntity = User.class)
 	@JsonIgnore
 	@JoinColumn(name = "userId", referencedColumnName = "user_id")
 	private User user;
