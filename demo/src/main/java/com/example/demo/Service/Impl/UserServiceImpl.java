@@ -4,7 +4,9 @@ import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -14,6 +16,8 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    private PasswordEncoder passwordEncoder;
+
     public UserServiceImpl(UserRepository userRepository) {
         super();
         this.userRepository = userRepository;
@@ -21,6 +25,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User saveUser(User user) {
+        user.setUserPassword(passwordEncoder.encode(user.getUserPassword()));
         return userRepository.save(user);
     }
 
@@ -48,5 +58,24 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findUserByUserType(String userType) {
         return userRepository.findByUserType(userType).orElse(null);
+    }
+
+    @Override
+    public void clear(){
+        userRepository.deleteAll();
+    }
+    @Override
+    public boolean update(String userName, User user){
+        User toUpdate = userRepository.findByUserName(userName).orElse(null);
+        toUpdate.setUserName(user.getUserName());
+
+        toUpdate.setUserPassword(user.getUserPassword());
+        try{
+            userRepository.save(toUpdate);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }
