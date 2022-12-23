@@ -37,6 +37,9 @@ public class UserController {
 
     @Autowired
     private MyUserLoginDetailsService userDetailsService;
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/user")
     public ResponseEntity<?> allUsers(){
         List<User> users = userService.findUser();
@@ -89,6 +92,31 @@ public class UserController {
                 .loadUserByUsername(username);//User.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
         return  new ResponseEntity<>(jwt, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteUser")
+    public ResponseEntity<?> deleteUser(@RequestParam("id") Long userId){
+        User user = userService.findUserById(userId);
+        if(user==null){
+            return new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);
+        }
+        userService.deleteUser(userId);
+        return new ResponseEntity<>(user,HttpStatus.OK);
+
+    }
+
+    @PutMapping
+    public ResponseEntity<?> updateUser(@RequestParam("id") Long userid, User userDetails){
+        User user = userService.findUserById(userid);
+//        final UserDetails userDetails = userDetailsService;
+        if(user==null){
+            return new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);
+        }
+        user.setUserName(userDetails.getUserName());
+        user.setUserPassword(userDetails.getUserPassword());
+        user.setRole(userDetails.getRole());
+        userRepository.save(user);
+        return new ResponseEntity<>("updated user" + user.toString(), HttpStatus.OK);
     }
 
 }
