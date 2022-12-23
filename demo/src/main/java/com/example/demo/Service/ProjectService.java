@@ -15,7 +15,7 @@ public interface ProjectService {
 
     String deleteProject(Integer id);
 
-//    Project findProjectByProjectProductId(Integer id);
+    Project findProjectByProjectId(Integer id);
 
 
 }

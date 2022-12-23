@@ -5,6 +5,7 @@ import com.example.demo.Entity.Product;
 import com.example.demo.Entity.ProductType;
 import com.example.demo.Entity.TechnicalDetail;
 import com.example.demo.Service.DescriptionService;
+import com.example.demo.Service.ProductService;
 import com.example.demo.Service.ProductTypeService;
 import com.example.demo.Service.TechnicalDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +13,82 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 @RestController
-@RequestMapping("/serach")
+@RequestMapping("/search")
 public class SearchController {
-    // Description
+    // Structure of this controller:
+    // 1 Retrieving Products (Search for products)
+    // 2 Previous codes in Description, ProductType and TechnicalDetail Controller
+
+    @Autowired ProductService productService;
+
+    @GetMapping("/advanced-search")
+    public ResponseEntity<?> findProductByAdvancedSearch(@RequestParam(value = "type", required = false) String type,
+                                                         @RequestParam(value = "mountingLocation", required = false) String location,
+                                                         @RequestParam(value = "application", required = false) String app,
+                                                         @RequestParam(value = "accessories", required = false) String accs,
+                                                         @RequestParam(value = "modelYear", required = false) Integer year1,
+                                                         @RequestParam(value = "modelYear", required = false) Integer year2,
+                                                         @RequestParam(value = "airflow", required = false) Integer para1,
+                                                         @RequestParam(value = "modelYear", required = false) Integer para2,
+                                                         @RequestParam(value = "power", required = false) Integer para3,
+                                                         @RequestParam(value = "modelYear", required = false) Integer para4,
+                                                         @RequestParam(value = "productBrand",required = false) String brand) {
+        List<Product> list1 = productService.findByProductTypeType(type);
+        List<Product> list2 = productService.findByProductTypeMountingLocation(location);
+        List<Product> list3 = productService.findByProductTypeApplication(app);
+        List<Product> list4 = productService.findByProductTypeAccessories(accs);
+        List<Product> list5 = productService.findByProductTypeModelYearBetween(year1, year2);
+        List<Product> list6 = productService.findByTechnicalDetailAirflowBetween(para1, para2);
+        List<Product> list7 = productService.findByTechnicalDetailPowerBetween(para3, para4);
+        List<Product> list8 = productService.findProductByProductBrand(brand);
+
+        List<Product> joinedList = new ArrayList<>();
+        Stream.of(list1,list2,list3,list4,list5,list6,list7,list8).forEach(joinedList::addAll);
+        List<Product> uniqueJoinedList = joinedList.stream().distinct().collect(Collectors.toList());
+
+        if (uniqueJoinedList.isEmpty()) {
+            return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(uniqueJoinedList, HttpStatus.OK);
+    }
+
+    @GetMapping("/product-by-id")
+    public ResponseEntity<?> findProductById(@RequestParam("productId") Integer id) {
+        Product product =  productService.findProductById(id);
+        if (product == null) {
+            return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
+    @GetMapping("/product-by-brand")
+    public ResponseEntity<?> findProductByProductBrand(@RequestParam("productBrand") String brand) {
+        List<Product> productList = productService.findProductByProductBrand(brand);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+    @GetMapping("/product-by-certification")
+    public ResponseEntity<?> findProductByCertification(@RequestParam("certification") String certification) {
+        List<Product> productList = productService.findByCertification(certification);
+        if (productList.isEmpty()) {
+            return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
+
+
+    //**********
+    // Description Controller
+    //**********
     @Autowired
     private DescriptionService descriptionService;
 
@@ -39,16 +111,22 @@ public class SearchController {
         return new ResponseEntity<>(description, HttpStatus.OK);
     }
 
-    @PostMapping("/createDescription")//add mapping
-    public ResponseEntity<?> addDescription(@RequestParam("manufacturer") String manufacturer,
+    //hint:addDescription method need to ask client to input productId because any changes to Description table can be thought as
+    // change to Product table, the productID is used as a connection between two table.
+    @PostMapping("/createDescription")
+    public ResponseEntity<?> addDescription(@RequestParam("productId") Integer id,
+                                            @RequestParam("manufacturer") String manufacturer,
                                             @RequestParam("series") String series,
-                                            @RequestParam("model") String model){//need product_id?
+                                            @RequestParam("model") String model){
 
         Description description1 = new Description();
         description1.setManufacturer(manufacturer);
         description1.setSeries(series);
         description1.setModel(model);
-        Description res = descriptionService.createDescription(description1);
+
+        Product product1 = productService.findProductById(id);//find product by id
+        description1.setProduct(product1);//put product into  description
+        Description res = descriptionService.createDescription(description1);//put description data into database
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
 
@@ -89,7 +167,7 @@ public class SearchController {
     }
 
     @DeleteMapping("/deleteDescription")
-    public ResponseEntity<?> deleteDescription(@RequestParam Integer id) {
+    public ResponseEntity<?> deleteDescription(@RequestParam("id") Integer id) {
         Description description = descriptionService.findDescriptionByDescriptionId(id);
         if (description == null) {
             return new ResponseEntity<>("{\"error\":\"description not found!\"}", HttpStatus.NOT_FOUND);
@@ -97,9 +175,9 @@ public class SearchController {
         String s = descriptionService.deleteDescriptionByDescriptionId(id);
         return new ResponseEntity<>(description, HttpStatus.OK);
     }
-
-// Product Type
-
+    //**********
+    // ProductType Controller
+    //**********
     @Autowired
     private ProductTypeService productTypeService;
 
@@ -201,39 +279,40 @@ public class SearchController {
         String s = productTypeService.deleteProductTypeByProductTypeId(id);
         return new ResponseEntity<>(s, HttpStatus.OK);
     }
-
-    // Technical Detail
+    //**********
+    // TechnicalDetail Controller
+    //**********
 
     @Autowired
-    private TechnicalDetailService techservice;
-
+    private TechnicalDetailService service;
+    //    TechnicalDetail createDetail(TechnicalDetail detail);
     @PostMapping ("/tech-details/create")
     public ResponseEntity<?> createDetail(@RequestParam("airflow") Integer airflow,
                                           @RequestParam("power") Integer power,
                                           @RequestParam("operatingVoltage") Integer operatingVoltage,
                                           @RequestParam("fanSpeed") Integer fanSpeed) {
         TechnicalDetail detail = new TechnicalDetail(airflow, power, operatingVoltage, fanSpeed);
-        return new ResponseEntity<>(techservice.createDetail(detail), HttpStatus.CREATED);
+        return new ResponseEntity<>(service.createDetail(detail), HttpStatus.CREATED);
     }
-
+    //    String deleteDetailById(Integer id);
     @DeleteMapping("/tech-details/delete")
-    public String deleteDetailById(@RequestParam("id") Integer id) {
-        return techservice.deleteDetailById(id);
+    public String deleteDetailById(@RequestParam("technicalDetailId") Integer id) {
+        return service.deleteDetailById(id);
     }
-
+    //    TechnicalDetail findDetailById(Integer id);
     @GetMapping("/tech-details-by-id")
-    public ResponseEntity<?> findDetailById(@RequestParam("id") Integer id) {
-        TechnicalDetail detail = techservice.findDetailById(id);
+    public ResponseEntity<?> findDetailById(@RequestParam("technicalDetailId") Integer id) {
+        TechnicalDetail detail = service.findDetailById(id);
         if (detail == null) {
             return new ResponseEntity<>("{\"error\":\"Detail not found!\"}", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(detail, HttpStatus.OK);
     }
-
+    // Retrieving Products By Technical Details
     @GetMapping("/product-by-airflow")
-    public ResponseEntity<?> findProductByAirflowBetween(@RequestParam("para1") Integer para1,
-                                                         @RequestParam("para2") Integer para2) {
-        List<TechnicalDetail> productList = techservice.findProductByAirflowBetween(para1, para2);
+    public ResponseEntity<?> findProductByAirflowBetween(@RequestParam("airflow") Integer para1,
+                                                         @RequestParam("airflow") Integer para2) {
+        List<Product> productList = productService.findByTechnicalDetailAirflowBetween(para1, para2);
         if (productList.isEmpty()) {
             return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
         }
@@ -241,9 +320,9 @@ public class SearchController {
     }
 
     @GetMapping("/product-by-power")
-    public ResponseEntity<?> findProductByPowerBetween(@RequestParam("para1") Integer para1,
-                                                       @RequestParam("para2") Integer para2) {
-        List<TechnicalDetail> productList = techservice.findProductByPowerBetween(para1, para2);
+    public ResponseEntity<?> findProductByPowerBetween(@RequestParam("power") Integer para1,
+                                                       @RequestParam("power") Integer para2) {
+        List<Product> productList = productService.findByTechnicalDetailPowerBetween(para1, para2);
         if (productList.isEmpty()) {
             return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
         }
@@ -251,9 +330,9 @@ public class SearchController {
     }
 
     @GetMapping("/product-by-operating-voltage")
-    public ResponseEntity<?> findProductByOperatingVoltageBetween(@RequestParam("para1") Integer para1,
-                                                                  @RequestParam("para2") Integer para2) {
-        List<TechnicalDetail> productList = techservice.findProductByOperatingVoltageBetween(para1, para2);
+    public ResponseEntity<?> findProductByOperatingVoltageBetween(@RequestParam("operatingVoltage") Integer para1,
+                                                                  @RequestParam("operatingVoltage") Integer para2) {
+        List<Product> productList = productService.findByTechnicalDetailOperatingVoltageBetween(para1, para2);
         if (productList.isEmpty()) {
             return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
         }
@@ -261,15 +340,14 @@ public class SearchController {
     }
 
     @GetMapping("/product-by-fan-speed")
-    public ResponseEntity<?> findProductByFanSpeedBetween(@RequestParam("para1") Integer para1,
-                                                          @RequestParam("para2") Integer para2) {
-        List<TechnicalDetail> productList = techservice.findProductByFanSpeedBetween(para1, para2);
+    public ResponseEntity<?> findProductByFanSpeedBetween(@RequestParam("fanSpeed") Integer para1,
+                                                          @RequestParam("fanSpeed") Integer para2) {
+        List<Product> productList = productService.findByTechnicalDetailFanSpeedBetween(para1, para2);
         if (productList.isEmpty()) {
             return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
-
 }
 
 

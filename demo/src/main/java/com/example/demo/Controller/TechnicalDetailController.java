@@ -27,12 +27,12 @@ public class TechnicalDetailController {
     }
 //    String deleteDetailById(Integer id);
     @DeleteMapping("/tech-details/delete")
-    public String deleteDetailById(@RequestParam("id") Integer id) {
+    public String deleteDetailById(@RequestParam("technicalDetailId") Integer id) {
         return service.deleteDetailById(id);
     }
 //    TechnicalDetail findDetailById(Integer id);
     @GetMapping("/tech-details-by-id")
-    public ResponseEntity<?> findDetailById(@RequestParam("id") Integer id) {
+    public ResponseEntity<?> findDetailById(@RequestParam("technicalDetailId") Integer id) {
     TechnicalDetail detail = service.findDetailById(id);
     if (detail == null) {
         return new ResponseEntity<>("{\"error\":\"Detail not found!\"}", HttpStatus.NOT_FOUND);
@@ -40,43 +40,43 @@ public class TechnicalDetailController {
     return new ResponseEntity<>(detail, HttpStatus.OK);
     }
 //    List<TechnicalDetail> findProductByAirflowBetween(Integer para1, Integer para2);
-    @GetMapping("/product-by-airflow")
-    public ResponseEntity<?> findProductByAirflowBetween(@RequestParam("para1") Integer para1,
-                                                         @RequestParam("para2") Integer para2) {
-        List<TechnicalDetail> productList = service.findProductByAirflowBetween(para1, para2);
-        if (productList.isEmpty()) {
-            return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(productList, HttpStatus.OK);
-    }
+//    @GetMapping("/product-by-airflow")
+//    public ResponseEntity<?> findProductByAirflowBetween(@RequestParam("para1") Integer para1,
+//                                                         @RequestParam("para2") Integer para2) {
+//        List<TechnicalDetail> productList = service.findProductByAirflowBetween(para1, para2);
+//        if (productList.isEmpty()) {
+//            return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(productList, HttpStatus.OK);
+//    }
 //    List<TechnicalDetail> findProductByPowerBetween(Integer para1, Integer para2);
-    @GetMapping("/product-by-power")
-    public ResponseEntity<?> findProductByPowerBetween(@RequestParam("para1") Integer para1,
-                                                                           @RequestParam("para2") Integer para2) {
-        List<TechnicalDetail> productList = service.findProductByPowerBetween(para1, para2);
-        if (productList.isEmpty()) {
-            return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(productList, HttpStatus.OK);
+//    @GetMapping("/product-by-power")
+//    public ResponseEntity<?> findProductByPowerBetween(@RequestParam("para1") Integer para1,
+//                                                                           @RequestParam("para2") Integer para2) {
+//        List<TechnicalDetail> productList = service.findProductByPowerBetween(para1, para2);
+//        if (productList.isEmpty()) {
+//            return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
+//        }
+//        return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 //    List<TechnicalDetail> findProductByOperatingVoltageBetween(Integer para1, Integer para2);
-    @GetMapping("/product-by-operating-voltage")
-    public ResponseEntity<?> findProductByOperatingVoltageBetween(@RequestParam("para1") Integer para1,
-                                                                                      @RequestParam("para2") Integer para2) {
-    List<TechnicalDetail> productList = service.findProductByOperatingVoltageBetween(para1, para2);
-    if (productList.isEmpty()) {
-        return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
-    }
-    return new ResponseEntity<>(productList, HttpStatus.OK);
-}
+//    @GetMapping("/product-by-operating-voltage")
+//    public ResponseEntity<?> findProductByOperatingVoltageBetween(@RequestParam("para1") Integer para1,
+//                                                                                      @RequestParam("para2") Integer para2) {
+//    List<TechnicalDetail> productList = service.findProductByOperatingVoltageBetween(para1, para2);
+//    if (productList.isEmpty()) {
+//        return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
+//    }
+//    return new ResponseEntity<>(productList, HttpStatus.OK);
+//}
 //    List<TechnicalDetail> findProductByFanSpeedBetween(Integer para1, Integer para2);
-    @GetMapping("/product-by-fan-speed")
-    public ResponseEntity<?> findProductByFanSpeedBetween(@RequestParam("para1") Integer para1,
-                                                                              @RequestParam("para2") Integer para2) {
-    List<TechnicalDetail> productList = service.findProductByFanSpeedBetween(para1, para2);
-    if (productList.isEmpty()) {
-        return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
-    }
-    return new ResponseEntity<>(productList, HttpStatus.OK);
-}
-}
+//    @GetMapping("/product-by-fan-speed")
+//    public ResponseEntity<?> findProductByFanSpeedBetween(@RequestParam("para1") Integer para1,
+//                                                                              @RequestParam("para2") Integer para2) {
+//    List<TechnicalDetail> productList = service.findProductByFanSpeedBetween(para1, para2);
+//    if (productList.isEmpty()) {
+//        return new ResponseEntity<>("{\"error\":\"Product not found!\"}", HttpStatus.NOT_FOUND);
+//    }
+//    return new ResponseEntity<>(productList, HttpStatus.OK);
+//}
+//}
