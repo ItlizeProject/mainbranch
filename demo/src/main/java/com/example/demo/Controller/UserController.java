@@ -105,7 +105,7 @@ public class UserController {
 
     }
 
-    @PutMapping
+    @PutMapping("/updateUser")
     public ResponseEntity<?> updateUser(@RequestParam("id") Long userid, User userDetails){
         User user = userService.findUserById(userid);
 //        final UserDetails userDetails = userDetailsService;
