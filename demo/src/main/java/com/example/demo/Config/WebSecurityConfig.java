@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,37 +27,19 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //dont need to extend WebSecurityConfigurerAdapter
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true,jsr250Enabled = true)
+//@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true,jsr250Enabled = true)
 public class WebSecurityConfig {
     @Autowired
     MyUserLoginDetailsService userService;
 
     @Autowired
+    private BCryptPasswordEncoder encoder;
+    @Autowired
     private JwtRequestFilter jwtRequestFilter;
-
-//    @Override
-//    @Bean
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        return super.authenticationManagerBean();
-//    }
-
-
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-    @Bean
-    public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder, MyUserLoginDetailsService userDetailsService)
-            throws Exception {
-        return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder)
-                .and()
-                .build();
-    }
-
-    //instead of builder, use InMemoryUserDetailsManager
     @Autowired
     //Authentication
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -64,19 +48,8 @@ public class WebSecurityConfig {
         //Override the UserdatailsService class
         auth.userDetailsService(userService)
                 //Override the default password verification class
-                .passwordEncoder(passwordEncoder());
+                .passwordEncoder(bCryptPasswordEncoder());
     }
-
-
-//    @Bean
-//    public InMemoryUserDetailsManager userDetailsService() {
-//        MyUserLoginDetailsService user = User.withDefaultPasswordEncoder()
-//                .username("user")
-//                .password("password")
-//                .roles("USER")
-//                .build();
-//        return new InMemoryUserDetailsManager(user);
-//    }
 
 
 
@@ -105,84 +78,14 @@ public class WebSecurityConfig {
         return http.build();
     }
 
-//    @Bean
-//    protected void configure(HttpSecurity httpSecurity) throws Exception {
-//
-//
-//        httpSecurity.csrf().disable()
-//                //Cross-origin-resource-sharing
-//                .cors().and()
-//                .authorizeRequests()
-//                .requestMatchers("/user/authenticate").permitAll()
-//                .requestMatchers("/user/createUser").permitAll()
-//                .requestMatchers("/users/admin/**").hasRole("ADMIN")
-//                .anyRequest().fullyAuthenticated();// others need to be accessed after authentication
-//
-//
-//        httpSecurity
-//                .exceptionHandling().and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
-//
-//        httpSecurity
-//                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//    }
-
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.debug(securityDebug)
-//                .ignoring()
-//                .antMatchers("/css/**", "/js/**", "/img/**", "/lib/**", "/favicon.ico");
-//    }
-
-
     @Bean
-    public WebMvcConfigurer corsConfigure() {
-        return new WebMvcConfigurer() {
-            @Override
-            public void addCorsMappings(CorsRegistry registry) {
-
-                registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
-            }
-        };
+    public AuthenticationProvider authenticationProvider() {
+        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+        authenticationProvider.setUserDetailsService(userService);
+        authenticationProvider.setPasswordEncoder(encoder);
+        return authenticationProvider;
     }
-
-
-//        return http.build();
-//    }
-//    @Bean
-//    protected void configure(HttpSecurity httpSecurity) throws Exception {
-//        httpSecurity.csrf().disable()
-//                //Cross-origin-resource-sharing
-//                .cors().and()
-//                .authorizeRequests()
-//                .requestMatchers("/user/authenticate").permitAll()
-//                .requestMatchers("/user/createUser").permitAll()
-//                .requestMatchers("/users/admin/**").hasRole("ADMIN")
-//                .anyRequest().fullyAuthenticated();// others need to be accessed after authentication
-//
-//
-//        httpSecurity
-//                .exceptionHandling().and()
-//                .sessionManagement()
-//                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-//
-//
-//        httpSecurity
-//                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//    }
-//    @Bean
-//    public WebMvcConfigurer corsConfigure() {
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(CorsRegistry registry) {
-//
-//                registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
-//            }
-//        };
-//    }
-
 }
+
+
+
