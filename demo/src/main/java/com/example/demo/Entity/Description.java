@@ -25,7 +25,7 @@ public class Description {
 
     //Q(Victoria):cascade = CascadeType.ALL or cascade={CascadeType. DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType. REFRESH})
     @JsonIgnore//作用是后端发送给前端数据的时候让JSON file里不包括这个attribute（即将其忽略）
-    @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
+    @OneToOne(targetEntity = Product.class, cascade={CascadeType. DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType. REFRESH}, orphanRemoval = true, fetch = FetchType.EAGER)//fk
     @JoinColumn(name = "product_id")
     private Product product;
 

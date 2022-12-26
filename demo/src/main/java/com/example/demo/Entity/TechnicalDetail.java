@@ -14,7 +14,7 @@ public class TechnicalDetail {
     // @Column(name = "product_id")
     // private Integereger productID;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade={CascadeType. DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType. REFRESH})
     @JsonIgnore
     @JoinColumn(name = "productId", referencedColumnName = "product_id")
     private Product product;

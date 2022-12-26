@@ -31,7 +31,7 @@ public class ProductType {
     private Integer modelYear;//change: private Date modelYear;
 
     @JsonIgnore
-    @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
+    @OneToOne(targetEntity = Product.class, cascade={CascadeType. DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType. REFRESH}, orphanRemoval = true, fetch = FetchType.EAGER)//fk
     @JoinColumn(name = "productId", referencedColumnName="product_id")
     private Product product;
 
