@@ -1,49 +1,44 @@
 package com.example.demo.Entity;
 
-//product_id(pk)
-//product_type_id(fk)
-//technical_detail_id(fk)
-//description_id(fk)
-//product_brand
-//certification
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
+//@Table(name = "Products")
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", unique = true)
-    private Long productId;
+    @Column(name = "product_id")
+    private Integer productId;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
-    private List<ProjectProduct> projectProduct;
- 
+    private List<ProjectProduct> projectProduct = new ArrayList<>();
+
 
     //product_type_id(fk)
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
-	@JsonIgnore
-	@JoinColumn(name = "productTypeId", referencedColumnName = "product_type_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "productTypeId", referencedColumnName = "product_type_id")
     private ProductType productType;
 
     //technical_detail_id(fk)
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
-	@JsonIgnore
-	@JoinColumn(name = "technicalDetail", referencedColumnName = "technical_detail_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "technicalDetailId", referencedColumnName = "technical_detail_id")
     private TechnicalDetail technicalDetail;
 
     //description_id(fk)
-    @OneToOne(mappedBy = "product",cascade = CascadeType.ALL)
-	@JsonIgnore
-	@JoinColumn(name = "description", referencedColumnName = "description_id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @JoinColumn(name = "descriptionId", referencedColumnName = "description_id")
     private Description description;
-    
+
     public Product(){
 
     }
@@ -75,14 +70,13 @@ public class Product {
     public void setCertification(String certification) {
         this.certification = certification;
     }
-    private Long ProductId;
 
-    public Long getProductId() {
-        return ProductId;
+    public Integer getProductId() {
+        return productId;
     }
 
-    public void setProductId(Long productId) {
-        ProductId = productId;
+    public void setProductId(Integer productId) {
+        this.productId = productId;
     }
 
     public TechnicalDetail getTechnicalDetail() {
@@ -116,7 +110,16 @@ public class Product {
         this.projectProduct = projectProduct;
     }
 
-
-
-    
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", projectProduct=" + projectProduct +
+                ", productType=" + productType +
+                ", technicalDetail=" + technicalDetail +
+                ", description=" + description +
+                ", productBrand='" + productBrand + '\'' +
+                ", certification='" + certification + '\'' +
+                '}';
+    }
 }

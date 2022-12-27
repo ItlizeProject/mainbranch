@@ -1,7 +1,8 @@
 package com.example.demo.Entity;
 
+import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.*;
+import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -9,50 +10,56 @@ public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="project_id", unique = true)
-    private Long ProjectId;
+    @Column(name ="project_id")
+    private Integer projectId;
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
-	@JsonIgnore
-	@JoinColumn(name = "userId", referencedColumnName = "user_id")
-	private User user;
+
+    //(Victoria)after using "cascade = CascadeType.DETACH",when deleting project data, then user table won't be influenced
+    @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.EAGER, targetEntity = User.class)
+    @JsonIgnore
+    @JoinColumn(name = "userId", referencedColumnName = "user_id")//userId is the attribute name of table Project
+    private User user;
 
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = ProjectProduct.class)
     @JsonIgnore
-    private List<ProjectProduct> ProjectProduct;
+    private List<ProjectProduct> projectProduct = new ArrayList<>();
 
     //create constructor
     public Project(){
 
     }
-    
-	public User getUser() {
-		return user;
-	}
 
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-    public Long getProjectId() {
-        return ProjectId;
+    public User getUser() {
+        return user;
     }
 
-    public void setProjectId(Long projectId) {
-        ProjectId = projectId;
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Integer getProjectId() {
+        return projectId;
+    }
+
+    public void setProjectId(Integer projectId) {
+        projectId = projectId;
     }
 
     public List<ProjectProduct> getProjectProduct() {
-        return ProjectProduct;
+        return projectProduct;
     }
 
     public void setProjectProduct(List<ProjectProduct> projectProduct) {
-        ProjectProduct = projectProduct;
+        this.projectProduct = projectProduct;
     }
 
-    
-    
 
-
-    
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectId=" + projectId +
+                ", user=" + user +
+                ", projectProduct=" + projectProduct +
+                '}';
+    }
 }

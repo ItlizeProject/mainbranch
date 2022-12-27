@@ -1,16 +1,17 @@
 package com.example.demo.Entity;
-
-import javax.persistence.*;
-
+//modified by Victoria
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonPOJOBuilder;
+import jakarta.persistence.*;
+//import lombok.Builder;
 
+//Domain Layer
 @Entity
 public class Description {
-
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
-    @Column(name = "description_id", unique = true)
-    private int descriptionId;
+    @Column(name = "description_id")
+    private Integer descriptionId;
 
     @Column(name = "manufacturer")
     private String manufacturer;
@@ -21,9 +22,12 @@ public class Description {
     @Column(name = "model")
     private String model;
 
-    @OneToOne(cascade = CascadeType.ALL)//fk
-    @JsonIgnore
-    @JoinColumn(name = "productId", referencedColumnName = "product_id")
+
+    //changed:from cascade = CascadeType.ALL to now becasue when delete description table, it shouldn't change product table
+
+    @JsonIgnore//作用是后端发送给前端数据的时候让JSON file里不包括这个attribute（即将其忽略）
+    @OneToOne(targetEntity = Product.class,cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType. REFRESH}, orphanRemoval = true, fetch = FetchType.EAGER)//fk
+    @JoinColumn(name = "product_id")
     private Product product;
 
     public Description() {
@@ -36,11 +40,11 @@ public class Description {
         this.model = model;
     }
 
-    public int getDescriptionId() {
+    public Integer getDescriptionId() {
         return descriptionId;
     }
 
-    public void setDescriptionId(int descriptionId) {
+    public void setDescriptionId(Integer descriptionId) {
         this.descriptionId = descriptionId;
     }
 
@@ -74,5 +78,16 @@ public class Description {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "Description{" +
+                "descriptionId=" + descriptionId +
+                ", manufacturer='" + manufacturer + '\'' +
+                ", series='" + series + '\'' +
+                ", model='" + model + '\'' +
+                ", product=" + product +
+                '}';
     }
 }

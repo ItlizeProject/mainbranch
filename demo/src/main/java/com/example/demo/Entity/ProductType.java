@@ -1,14 +1,19 @@
 package com.example.demo.Entity;
-import javax.persistence.*;
+//modified by Victoria
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.*;
 import java.util.Date;
+
+
 @Entity
 
 public class ProductType {
- 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_type_id", unique = true)
-    private int productTypeId;
+    private Integer productTypeId;
 
     @Column(name = "application")
     private String application;
@@ -23,17 +28,17 @@ public class ProductType {
     private String accessories;
 
     @Column(name = "model_year")
-    private Date modelYear;
+    private Integer modelYear;//change: private Date modelYear;
 
-
-    @OneToOne(cascade = CascadeType.ALL)//fk
+    @JsonIgnore
+    @OneToOne(targetEntity = Product.class, cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)//fk
     @JoinColumn(name = "productId", referencedColumnName="product_id")
     private Product product;
 
     public ProductType() {
     }
 
-    public ProductType(String application, String type, String mountingLocation, String accessories, Date modelYear) {
+    public ProductType(String application, String type, String mountingLocation, String accessories, Integer modelYear) {
         this.application = application;
         this.type = type;
         this.mountingLocation = mountingLocation;
@@ -41,11 +46,11 @@ public class ProductType {
         this.modelYear = modelYear;
     }
 
-    public int getProductTypeId() {
+    public Integer getProductTypeId() {
         return productTypeId;
     }
 
-    public void setProductTypeId(int productTypeId) {
+    public void setProductTypeId(Integer productTypeId) {
         this.productTypeId = productTypeId;
     }
 
@@ -81,11 +86,11 @@ public class ProductType {
         this.accessories = accessories;
     }
 
-    public Date getModelYear() {
+    public Integer getModelYear() {
         return modelYear;
     }
 
-    public void setModelYear(Date modelYear) {
+    public void setModelYear(Integer modelYear) {
         this.modelYear = modelYear;
     }
 
@@ -95,5 +100,18 @@ public class ProductType {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductType{" +
+                "productTypeId=" + productTypeId +
+                ", application='" + application + '\'' +
+                ", type='" + type + '\'' +
+                ", mountingLocation='" + mountingLocation + '\'' +
+                ", accessories='" + accessories + '\'' +
+                ", modelYear=" + modelYear +
+                ", product=" + product +
+                '}';
     }
 }
