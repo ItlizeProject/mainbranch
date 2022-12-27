@@ -4,6 +4,7 @@ import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private BCryptPasswordEncoder passwordEncoder;//changed from PasswordEncoder data type to BCryptPasswordEncoder data type
 
     public UserServiceImpl(UserRepository userRepository) {
         super();

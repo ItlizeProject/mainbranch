@@ -26,7 +26,7 @@ class UserServiceImplTest {
     void createUser() {
         List<Project> usersProjectList = new ArrayList<>();
         User newUser = new User();
-        newUser.setUserName("Victoria");
+        newUser.setUserName("Jason");
         newUser.setUserPassword("abc123");
         newUser.setUserType("Manager");
         newUser.setProjectList(usersProjectList);

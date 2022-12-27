@@ -49,7 +49,7 @@ public class UserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
-    @GetMapping("/userById/")
+    @GetMapping("/userById")
     public ResponseEntity<?> getUserById(@RequestParam("id") Long id){
         User user = userService.findUserById(id);
         if(user == null){
