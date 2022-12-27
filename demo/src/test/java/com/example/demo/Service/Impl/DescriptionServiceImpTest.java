@@ -64,8 +64,8 @@ class DescriptionServiceImpTest {
 
     @Test
     void deleteDescriptionByDescriptionId() {//test it
-        descriptionService.deleteDescriptionByDescriptionId(3);
-        System.out.println("The line with id =" + 3 + "has been removed");
+        descriptionService.deleteDescriptionByDescriptionId(2);
+        System.out.println("The line with id =" + 2 + "has been removed");
 
     }
 

@@ -12,8 +12,9 @@ public class ProjectProduct{
     private Integer projectProductId;
 
     //project_id(fk)
-
     //Q(Victoria): for intermediate entity，CascadeType should be Detach?
+
+
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Project.class)
     @JsonIgnore
     @JoinColumn(name = "projectId", referencedColumnName = "project_id")

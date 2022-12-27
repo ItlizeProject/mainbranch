@@ -13,9 +13,9 @@ public class Project {
     @Column(name ="project_id")
     private Integer projectId;
 
-    //Q:cascade type should be cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-    //            CascadeType.DETACH, CascadeType.REFRESH}?
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = User.class)
+
+    //(Victoria)after using "cascade = CascadeType.DETACH",when deleting project data, then user table won't be influenced
+    @ManyToOne(cascade = CascadeType.DETACH,fetch = FetchType.EAGER, targetEntity = User.class)
     @JsonIgnore
     @JoinColumn(name = "userId", referencedColumnName = "user_id")//userId is the attribute name of table Project
     private User user;

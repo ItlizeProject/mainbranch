@@ -13,7 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.*;
-
+//Victoria
 @RestController
 @RequestMapping("/projectController")
 public class ProjectController {
@@ -54,7 +54,7 @@ public class ProjectController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
-    @PostMapping("/createProject")//passed
+    @PostMapping("/createProject")
     public ResponseEntity<?> addProject(@RequestParam("userId") Long userId){
 
         User user = userService.findUserById(userId);//get user info
@@ -77,10 +77,11 @@ public class ProjectController {
         //reason: if userId duplicate in project table, when try to delete project, related line(same userID) in User table would be deleted.
         //then, the deletion of user table will lead to the deletion of project (because of cascade = CascadeType.ALL setting in user entity one-to-many with project)
         //result: in project table, all lines with same specific userID will all be deleted
-        project.setUser(null);
-        projectService.save(project);
+        //when I add the two lines below, the side effect (deletion in user table lead to the deletion of project) would be eliminated
+      //  project.setUser(null);
+     //   projectService.save(project);//update
 
-        String s = projectService.deleteProject(id);
+         projectService.deleteProject(id);
         return new ResponseEntity<>(project, HttpStatus.OK);
     }
 }

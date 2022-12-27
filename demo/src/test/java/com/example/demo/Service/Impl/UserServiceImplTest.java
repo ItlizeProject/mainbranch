@@ -18,7 +18,10 @@ class UserServiceImplTest {
 
     //    UserRepository repository;
     @Autowired
-    UserServiceImpl service;
+    UserService service;
+    @Autowired
+    private UserRepository userRepository;
+
     @Test
     void createUser() {
         List<Project> usersProjectList = new ArrayList<>();
@@ -63,18 +66,20 @@ class UserServiceImplTest {
 
     @Test
     void deleteUser() {
-        List<Project> usersProjectList = new ArrayList<>();
-        Project proj1 = new Project();
-        usersProjectList.add(proj1);
-        User newUser = new User();
-        newUser.setUserName("Simon");
-        newUser.setUserPassword("abc123");
-        newUser.setUserType("Manager");
-        newUser.setProjectList(usersProjectList);
-        service.createUser(newUser);
-        Assertions.assertNotNull(service.findUserById((long)3));
-        service.deleteUser((long)3);
-        Assertions.assertNull(service.findUserById((long)3));
+      //  List<Project> usersProjectList = new ArrayList<>();
+      //  Project proj1 = new Project();
+      //  usersProjectList.add(proj1);
+     //   User newUser = new User();
+        User newUser = service.findUserById(4L);
+//        newUser.setUserName("Simon");
+//        newUser.setUserPassword("abc123");
+//        newUser.setUserType("Manager");
+//        newUser.setProjectList(usersProjectList);
+        System.out.println(newUser);
+     //   service.createUser(newUser);
+     //   Assertions.assertNotNull(service.findUserById(4L));
+        service.deleteUser((long)4);
+        Assertions.assertNull(service.findUserById((long)4));
 
     }
 
