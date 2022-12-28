@@ -17,7 +17,7 @@ import java.util.*;
 //UserController class @Autowired this class and use the  "MyUserLoginDetailsService userService;" to call methods in this class
 //需要自定义逻辑时，只需要实现 UserDetailsService 接口即可
 @Service
-public class MyUserLoginDetailsService implements UserDetailsService {
+public class MyUserLoginDetailsService implements UserDetailsService {//this class is the implementation class of UserDetailService Interface
     @Autowired
     UserRepository userRepository;
 

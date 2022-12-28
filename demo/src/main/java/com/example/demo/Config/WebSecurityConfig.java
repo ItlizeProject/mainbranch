@@ -50,7 +50,7 @@ public class WebSecurityConfig {
         // Password uses BCryptEncoder (combined with random salt and encryption algorithm) that comes with security.
         //Override the UserdatailsService class
         /*
-        AuthenticationManagerBuilder接口里面还有一个方法 userDetailsService()，此方法接收一个UserDetailsService接口的实现类，
+        AuthenticationManagerBuilder接口里面还有一个方法叫userDetailsService()，此方法接收一个UserDetailsService接口的实现类！！！
         而MyUserLoginDetailsService就是本方法中UserDetailsService接口的实现类。本class @Autowired 了MyUserLoginDetailsService userService，
         所以写成auth.userDetailsService(userService)
          */

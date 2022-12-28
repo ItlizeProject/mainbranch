@@ -16,8 +16,10 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    ////this passEncoder can actually call methods from BCryptPasswordEncoder class
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;//changed from PasswordEncoder data type to BCryptPasswordEncoder data type
+    private BCryptPasswordEncoder passwordEncoder;//need to change from PasswordEncoder data type to BCryptPasswordEncoder data type?
 
     public UserServiceImpl(UserRepository userRepository) {
         super();
