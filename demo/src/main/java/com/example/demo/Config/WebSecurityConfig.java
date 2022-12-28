@@ -9,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,14 +34,14 @@ public class WebSecurityConfig {
     MyUserLoginDetailsService userService;
 
     @Autowired
-    private BCryptPasswordEncoder encoder;//need it?
+    private PasswordEncoder encoder;//need it?
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
 
     //作用：给password加密
     //告诉Java 在UserSeviceImp class里 @Autowired 的PasswordEncoder passwordEncoder 调用方法时时该调用BCryptPasswordEncoder实现类的方法
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
     @Autowired
@@ -50,7 +51,7 @@ public class WebSecurityConfig {
         // Password uses BCryptEncoder (combined with random salt and encryption algorithm) that comes with security.
         //Override the UserdatailsService class
         /*
-        AuthenticationManagerBuilder接口里面还有一个方法叫userDetailsService()，此方法接收一个UserDetailsService接口的实现类！！！
+        AuthenticationManagerBuilder接口里面还有一个方法 userDetailsService()，此方法接收一个UserDetailsService接口的实现类，
         而MyUserLoginDetailsService就是本方法中UserDetailsService接口的实现类。本class @Autowired 了MyUserLoginDetailsService userService，
         所以写成auth.userDetailsService(userService)
          */
@@ -60,28 +61,33 @@ public class WebSecurityConfig {
     }
 
 
+    @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
 
+    }
     //configure for http security non-deprecated
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf()
                 .disable()
-                .authorizeHttpRequests()
-                .requestMatchers(HttpMethod.DELETE)
-                .hasRole("ADMIN")
-                .requestMatchers("/admin/**")
-                .hasAnyRole("ADMIN")
-                .requestMatchers("/user/**")
-                .hasAnyRole("USER", "ADMIN")
-                .requestMatchers("/login/**")
-                .anonymous()
+                .authorizeRequests()
+                .requestMatchers("/user/authenticate").permitAll()
+                .requestMatchers("/user/createUser").permitAll()
+                .requestMatchers(HttpMethod.DELETE).hasRole("ADMIN")
+                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                //  .requestMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+                //  .requestMatchers("/login/**")
+                //  .anonymous()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic()
-                .and()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+
 
         return http.build();
     }
@@ -90,9 +96,8 @@ public class WebSecurityConfig {
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(userService);
-        authenticationProvider.setPasswordEncoder(encoder);
+        authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
         return authenticationProvider;
     }
 }
-
 

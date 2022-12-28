@@ -16,20 +16,18 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
-    ////this passEncoder can actually call methods from BCryptPasswordEncoder class
     @Autowired
-    private BCryptPasswordEncoder passwordEncoder;//need to change from PasswordEncoder data type to BCryptPasswordEncoder data type?
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository) {
         super();
         this.userRepository = userRepository;
     }
 
-    @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
+    //@Override
+    //public User createUser(User user) {
+    //   return userRepository.save(user);
+    //}
 
     @Override
     public User saveUser(User user) {
