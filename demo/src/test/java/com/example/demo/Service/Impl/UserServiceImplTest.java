@@ -23,14 +23,14 @@ class UserServiceImplTest {
     private UserRepository userRepository;
 
     @Test
-    void createUser() {
+    void saveUser() {
         List<Project> usersProjectList = new ArrayList<>();
         User newUser = new User();
         newUser.setUserName("Victoria");
         newUser.setUserPassword("abc123");
         newUser.setUserType("Manager");
         newUser.setProjectList(usersProjectList);
-        service.createUser(newUser);
+        service.saveUser(newUser);
         Assertions.assertEquals(newUser.getUserName(),service.findUserById((long)5).getUserName());
     }
 
@@ -38,11 +38,11 @@ class UserServiceImplTest {
     void findUser() {
         List<User> usersList = new ArrayList<>();
         User u1 = new User("Simon1", "123");
-        service.createUser(u1);
+        service.saveUser(u1);
         User u2 = new User("Simon2", "1234");
-        service.createUser(u2);
+        service.saveUser(u2);
         User u3 = new User("Simon3", "12345");
-        service.createUser(u3);
+        service.saveUser(u3);
         usersList.add(u1);
         usersList.add(u2);
         usersList.add(u3);
@@ -59,7 +59,7 @@ class UserServiceImplTest {
         newUser.setUserPassword("abc1233");
         newUser.setUserType("Employee");
         newUser.setProjectList(usersProjectList);
-        service.createUser(newUser);
+        service.saveUser(newUser);
         User testUser = service.findUserById((long)16);
         Assertions.assertEquals("User{userId=16, userName='Simon2', userPassword='abc1233', userType='Employee', projectList=[]}", testUser.toString());
     }
@@ -76,7 +76,7 @@ class UserServiceImplTest {
 //        newUser.setUserType("Manager");
 //        newUser.setProjectList(usersProjectList);
         System.out.println(newUser);
-     //   service.createUser(newUser);
+     //   service.saveUser()(newUser);
      //   Assertions.assertNotNull(service.findUserById(4L));
         service.deleteUser((long)4);
         Assertions.assertNull(service.findUserById((long)4));
@@ -97,7 +97,7 @@ class UserServiceImplTest {
         newUser.setUserName("SimonZhen");
         newUser.setUserPassword("passwordqwe123");
         newUser.setUserType("AccountManager");
-        service.createUser(newUser);
+        service.saveUser(newUser);
         Assertions.assertEquals(newUser.toString(), service.findUserByUserType("AccountManager").toString());
 
     }

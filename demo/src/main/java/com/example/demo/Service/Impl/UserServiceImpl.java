@@ -24,10 +24,10 @@ public class UserServiceImpl implements UserService {
         this.userRepository = userRepository;
     }
 
-    @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
-    }
+    //@Override
+    //public User createUser(User user) {
+     //   return userRepository.save(user);
+    //}
 
     @Override
     public User saveUser(User user) {

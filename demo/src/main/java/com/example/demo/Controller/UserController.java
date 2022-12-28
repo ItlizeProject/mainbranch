@@ -11,11 +11,13 @@ import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +27,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("user")
+@RequestMapping("/user")
 @RequiredArgsConstructor
 public class UserController {
+
     @Autowired
     private final AuthenticationManager authenticatonManager;
 
+
+//    @Bean
+//  //  private AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration) throws Exception
+//    {
+//        return authenticationConfiguration.getAuthenticationManager();
+//    }
     @Autowired
     private UserService userService;
 
@@ -39,8 +48,7 @@ public class UserController {
 
     @Autowired
     private MyUserLoginDetailsService userDetailsService;
-    @Autowired
-    private UserRepository userRepository;
+
 
     @GetMapping("/user")
     public ResponseEntity<?> allUsers(){
@@ -72,12 +80,12 @@ public class UserController {
         newUser.setUserPassword(userPassword);
         newUser.setUserType(userType);
         newUser.setProjectList(project);
-        User createdUser = userService.createUser(newUser);
+        User createdUser = userService.saveUser(newUser);
         return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
     }
     //sign in
-    @PostMapping( "/authenticate")
-    public ResponseEntity<?> authenticate(@RequestParam(name="username") String username,
+    @PostMapping(value = "/authenticate")
+    public ResponseEntity<?> createAuthenticationToken(@RequestParam(name="username") String username,
                                                        @RequestParam(name="password") String password)
     //@RequestBody User User)
             throws Exception {
@@ -122,7 +130,7 @@ public class UserController {
         user.setUserName(userDetails.getUserName());
         user.setUserPassword(userDetails.getUserPassword());
         user.setRole(userDetails.getRole());
-        userRepository.save(user);
+        userService.saveUser(user);
         return new ResponseEntity<>("updated user" + user.toString(), HttpStatus.OK);
     }
 
