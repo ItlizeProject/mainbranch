@@ -1,5 +1,6 @@
 package com.example.demo.Controller;
 import com.example.demo.Entity.Project;
+import com.example.demo.Entity.Role;
 import com.example.demo.Entity.User;
 import com.example.demo.Repository.UserRepository;
 import com.example.demo.Service.MyUserLoginDetailsService;
@@ -33,23 +34,12 @@ public class UserController {
 
     @Autowired
     private final AuthenticationManager authenticatonManager;
-
-
-//    @Bean
-//  //  private AuthenticationManager authenticationManagerBean(AuthenticationConfiguration authenticationConfiguration) throws Exception
-//    {
-//        return authenticationConfiguration.getAuthenticationManager();
-//    }
     @Autowired
     private UserService userService;
-
     @Autowired
     private JwtUtil jwtTokenUtil;
-
     @Autowired
     private MyUserLoginDetailsService userDetailsService;
-
-
     @GetMapping("/user")
     public ResponseEntity<?> allUsers(){
         List<User> users = userService.findUser();
@@ -69,17 +59,19 @@ public class UserController {
 
     }
     @PostMapping("/createUser")
-    public ResponseEntity<?> addUser(@RequestParam("userId") Long userId,
+    public ResponseEntity<?> addUser(
                                      @RequestParam("userName") String username,
                                      @RequestParam("userPassword") String userPassword,
-                                     @RequestParam("userType") String userType){
+                                     @RequestParam("userType") String userType,
+                                     @RequestParam("role") Role role){
+
         User newUser = new User();
         List<Project> project = new ArrayList<>();
-        newUser.setUserId(userId);
         newUser.setUserName(username);
         newUser.setUserPassword(userPassword);
         newUser.setUserType(userType);
         newUser.setProjectList(project);
+        newUser.setRole(role);
         User createdUser = userService.saveUser(newUser);
         return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
     }
@@ -87,7 +79,6 @@ public class UserController {
     @PostMapping(value = "/authenticate")
     public ResponseEntity<?> createAuthenticationToken(@RequestParam(name="username") String username,
                                                        @RequestParam(name="password") String password)
-    //@RequestBody User User)
             throws Exception {
 
         try {
@@ -98,11 +89,6 @@ public class UserController {
         catch (BadCredentialsException e) {
             throw new Exception("Incorrect username or password", e);
         }
-//        final UserDetails user = userDetailsService.loadUserByUsername(username);
-//        if(user != null){
-//            return ResponseEntity.ok(jwtTokenUtil.generateToken(user));
-//        }
-
         final UserDetails userDetails = userDetailsService
                 .loadUserByUsername(username);//loadUserByUsername()返回的是授予用户的权限//User.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
