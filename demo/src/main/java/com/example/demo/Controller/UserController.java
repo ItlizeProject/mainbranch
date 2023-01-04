@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -21,6 +22,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -33,7 +35,7 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private final AuthenticationManager authenticatonManager;
+    private final AuthenticationManager authenticationManager;
     @Autowired
     private UserService userService;
     @Autowired
@@ -58,31 +60,64 @@ public class UserController {
         return new ResponseEntity<>(user,HttpStatus.OK);
 
     }
+    //change to @requestbody
     @PostMapping("/createUser")
-    public ResponseEntity<?> addUser(
-                                     @RequestParam("userName") String username,
-                                     @RequestParam("userPassword") String userPassword,
-                                     @RequestParam("userType") String userType,
-                                     @RequestParam("role") Role role){
+    public ResponseEntity<?> addUser(@RequestBody User user){
+        try{
+            User newUser = new User();
+            List<Project> project = new ArrayList<>();
+            newUser.setUserName(user.getUserName());
+            newUser.setUserPassword(user.getUserPassword());
+            newUser.setUserType(user.getUserType());
+            newUser.setProjectList(project);
+            newUser.setRole(user.getRole());
+            User createdUser = userService.saveUser(newUser);
+            return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
+        } catch (Exception e){
+            return new ResponseEntity<>(null,HttpStatus.INTERNAL_SERVER_ERROR);
+        }
 
-        User newUser = new User();
-        List<Project> project = new ArrayList<>();
-        newUser.setUserName(username);
-        newUser.setUserPassword(userPassword);
-        newUser.setUserType(userType);
-        newUser.setProjectList(project);
-        newUser.setRole(role);
-        User createdUser = userService.saveUser(newUser);
-        return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
+//                                     @RequestParam("userName") String username,
+//                                     @RequestParam("userPassword") String userPassword,
+//                                     @RequestParam("userType") String userType,
+//                                     @RequestParam("role") Role role){
+//
+//        User newUser = new User();
+//        List<Project> project = new ArrayList<>();
+//        newUser.setUserName(username);
+//        newUser.setUserPassword(userPassword);
+//        newUser.setUserType(userType);
+//        newUser.setProjectList(project);
+//        newUser.setRole(role);
+//        User createdUser = userService.saveUser(newUser);
+//        return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
+
+//
+//        User newUser = new User();
+//        newUser.setUserName(user.getUserName());
+//        newUser.setUserPassword(user.getUserPassword());
+//        newUser.setUserType(user.getUserType());
+//        newUser.setProjectList(user.getProjectList());
+//        newUser.setRole(user.getRole());
+//        User createdUser = userService.saveUser(newUser);
+//        return new ResponseEntity<>(createdUser,HttpStatus.CREATED);
+//        User result = userService.saveUser(user);
+//        return ResponseEntity.ok().body(result);
     }
     //sign in
-    @PostMapping(value = "/authenticate")
-    public ResponseEntity<?> createAuthenticationToken(@RequestParam(name="username") String username,
-                                                       @RequestParam(name="password") String password)
+    @PostMapping(value = "/authenticate", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody User user)
+//                                                       @RequestParam(name="username") String username,
+//                                                       @RequestParam(name="password") String password)
+    //@RequestBody User user
+    //String username = user.getUsername();
+    //String password = user.getPassword()
             throws Exception {
+        String username = user.getUserName();
+        String password = user.getUserPassword();
 
         try {
-            authenticatonManager.authenticate(
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(username,password)//User.getUsername(), User.getPassword())
             );
         }
